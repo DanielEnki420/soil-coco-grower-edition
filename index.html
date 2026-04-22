@@ -8,8 +8,8 @@
 <style>
 
   .logo-img {
-    height: 48px;
-    width: 48px;
+    height: 64px;
+    width: 64px;
     object-fit: contain;
     flex-shrink: 0;
   }
@@ -585,6 +585,18 @@
         <option value="plagron-coco">🌱 Plagron Coco</option>
         <option value="ghe">🧪 GHE Flora Series</option>
         <option value="advanced">⚡ Advanced Nutrients</option>
+        <option value="biotabs">🟫 BioTabs (Organic Tablets)</option>
+        <option value="house-garden">🏡 House &amp; Garden</option>
+        <option value="dutch-pro">🔵 Dutch Pro</option>
+        <option value="bac">🌿 BAC Fertilizers</option>
+        <option value="aptus">💎 Aptus Plant Tech</option>
+        <option value="metrop">🟠 Metrop</option>
+        <option value="top-crop">🇪🇸 Top Crop</option>
+        <option value="atami">🌊 Atami B'Cuzz</option>
+        <option value="shogun">🟡 Shogun Fertilisers</option>
+        <option value="terra-aquatica">🌱 Terra Aquatica</option>
+        <option value="athena">🩵 Athena Nutrients</option>
+        <option value="greenhouse">🏠 Green House Feeding</option>
       </select>
       <label data-i18n="phase_label">Phase:</label>
       <select id="phase-select" onchange="renderNutrients()">
@@ -1036,6 +1048,282 @@ const nutrients = {
       es: '<strong>⚠️ pH Perfect:</strong> La línea pH Perfect estabiliza el pH automáticamente — ¡aún así controla!'
     }
   }
+,
+  biotabs: {
+    name: 'BioTabs (Organic Tablets)',
+    grow: [
+      { product: 'BioTabs Tabletten', weeks: [1], ml: 1 },       // 1 Tablette pro Topf (Einmalig bei Topfung!)
+      { product: 'Bactrex (g/Topf)', weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Mycotrex (g/Topf)', weeks: [1], ml: 1 },
+      { product: 'Orgatrex (ml/L)', weeks: [1,2,3,4,5,6,7,8], ml: [0,1,2,3,3,4,4,4] },
+      { product: 'Startrex (g/L Erde)', weeks: [1], ml: 5 },
+    ],
+    bloom: [
+      { product: 'Orgatrex (ml/L)',     weeks: [1,2,3,4,5,6,7,8], ml: [4,4,4,3,3,2,1,0] },
+      { product: 'PK Booster (ml/L)',   weeks: [3,4,5,6],         ml: [1,2,2,1] },
+      { product: 'Bactrex (g/Topf)',    weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ BioTabs System:</strong> Tabletten NUR einmalig bei Topfung einarbeiten (5–10cm Tiefe). Orgatrex + Bactrex jedes Gießen. Kein pH-Up/Down nötig — Bio puffert selbst! Ziel-pH trotzdem 6.0–7.0 kontrollieren.',
+      en: '<strong>⚠️ BioTabs System:</strong> Tablets ONLY once when potting (5–10cm depth). Orgatrex + Bactrex every watering. No pH adjustment needed — bio buffers itself! Still check pH 6.0–7.0.',
+      it: '<strong>⚠️ BioTabs:</strong> Compresse UNA SOLA VOLTA al rinvaso. Orgatrex + Bactrex ad ogni innaffiatura. Non serve correggere il pH!',
+      es: '<strong>⚠️ BioTabs:</strong> Comprimidos UNA VEZ al trasplantar. Orgatrex + Bactrex en cada riego. ¡No se necesita ajuste de pH!'
+    }
+  },
+  'house-garden': {
+    name: 'House & Garden',
+    grow: [
+      { product: 'Soil A',      weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,2.5,2.5,2.5,2.5] },
+      { product: 'Soil B',      weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,2.5,2.5,2.5,2.5] },
+      { product: 'Roots Excelurator', weeks: [1,2,3],    ml: 0.3 },
+      { product: 'Algen Extract', weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'Amino Treatment', weeks: [2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    bloom: [
+      { product: 'Soil A',         weeks: [1,2,3,4,5,6,7,8], ml: [1.5,2,2.5,2.5,2.5,2.5,2,0] },
+      { product: 'Soil B',         weeks: [1,2,3,4,5,6,7,8], ml: [1.5,2,2.5,2.5,2.5,2.5,2,0] },
+      { product: 'Top Booster',    weeks: [3,4,5,6],         ml: [1,2,2,2] },
+      { product: 'Shooting Powder',weeks: [5,6,7],           ml: [0.5,1,0.5] },
+      { product: 'Bud XL',         weeks: [2,3,4,5,6],       ml: [1,2,2,2,1] },
+      { product: 'Algen Extract',  weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ H&amp;G Reihenfolge:</strong> A und B immer getrennt zugeben. Roots Excelurator nie mit anderen Produkten mischen — erst spülen! Shooting Powder erhöht EC stark.',
+      en: '<strong>⚠️ H&amp;G Order:</strong> Always add A and B separately. Never mix Roots Excelurator with other products — flush first! Shooting Powder raises EC significantly.',
+      it: '<strong>⚠️ H&amp;G:</strong> A e B sempre separatamente. Non mescolare Roots Excelurator con altri prodotti.',
+      es: '<strong>⚠️ H&amp;G:</strong> A y B siempre por separado. No mezclar Roots Excelurator con otros productos.'
+    }
+  },
+  'dutch-pro': {
+    name: 'Dutch Pro',
+    grow: [
+      { product: 'Soil Grow A',   weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,3,3,3,3] },
+      { product: 'Soil Grow B',   weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,3,3,3,3] },
+      { product: 'Take Root',     weeks: [1,2,3],            ml: 1 },
+      { product: 'Explode',       weeks: [5,6,7,8],          ml: 0.5 },
+    ],
+    bloom: [
+      { product: 'Soil Bloom A',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: 'Soil Bloom B',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: 'Explode',       weeks: [1,2,3,4,5,6],      ml: [0.5,1,1,1,1,0.5] },
+      { product: 'Multi Total',   weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'AutoFlower A',  weeks: [1,2,3,4,5,6,7,8], ml: 0 }, // nur für Autoflower
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Dutch Pro:</strong> A und B immer getrennt. Multi Total verbessert Nährstoffaufnahme — immer zuletzt zugeben.',
+      en: '<strong>⚠️ Dutch Pro:</strong> A and B always separate. Multi Total improves uptake — always add last.',
+      it: '<strong>⚠️ Dutch Pro:</strong> A e B sempre separatamente. Multi Total sempre per ultimo.',
+      es: '<strong>⚠️ Dutch Pro:</strong> A y B siempre por separado. Multi Total siempre al final.'
+    }
+  },
+  bac: {
+    name: 'BAC Fertilizers',
+    grow: [
+      { product: 'Organic Grow',    weeks: [1,2,3,4,5,6,7,8], ml: [1,2,3,4,5,5,5,5] },
+      { product: 'F1 Extreme',      weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Root Stimulator', weeks: [1,2,3,4],          ml: [2,2,1,1] },
+      { product: 'Lactic Acid Bact.', weeks: [1,2,3,4,5,6,7,8], ml: 0.3 },
+    ],
+    bloom: [
+      { product: 'Organic Bloom',   weeks: [1,2,3,4,5,6,7,8], ml: [3,4,5,5,5,5,3,0] },
+      { product: 'F1 Extreme',      weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Bloom Stimulator',weeks: [2,3,4,5,6],        ml: [1,2,3,3,2] },
+      { product: 'Final Solution',  weeks: [6,7,8],            ml: 2 },
+      { product: 'Lactic Acid Bact.', weeks: [1,2,3,4,5,6,7,8], ml: 0.3 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ BAC Bio:</strong> Milchsäurebakterien (Lactic Acid) aktivieren Bodenbiologie — sehr wichtig bei BAC-System! F1 Extreme ist Enzym-Booster, immer zugeben. Bio = pH leicht puffernd.',
+      en: '<strong>⚠️ BAC Bio:</strong> Lactic Acid Bacteria activate soil life — crucial for BAC system! F1 Extreme is enzyme booster, always add. Bio = slightly pH-buffering.',
+      it: '<strong>⚠️ BAC Bio:</strong> Batteri lattici attivano la vita del suolo. F1 Extreme è un booster enzimatico, aggiungere sempre.',
+      es: '<strong>⚠️ BAC Bio:</strong> Las bacterias lácticas activan la vida del suelo. F1 Extreme es potenciador enzimático, añadir siempre.'
+    }
+  },
+  aptus: {
+    name: 'Aptus Plant Tech',
+    grow: [
+      { product: 'Start Booster',  weeks: [1,2,3],            ml: [0.5,0.3,0.2] },
+      { product: 'Basecanna',      weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2,2.5,2.5,2.5,2.5] },
+      { product: 'Fasilitor',      weeks: [1,2,3,4,5,6,7,8], ml: 0.1 },
+      { product: 'Enzym+',         weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'All-in-One',     weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    bloom: [
+      { product: 'Basecanna',      weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: 'Bloombooster',   weeks: [1,2,3,4,5,6,7],   ml: [1,2,3,3,3,2,1] },
+      { product: 'Fasilitor',      weeks: [1,2,3,4,5,6,7,8], ml: 0.1 },
+      { product: 'Enzym+',         weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'TopBooster',     weeks: [4,5,6],            ml: [0.5,1,1] },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Aptus Konzentrat:</strong> Aptus ist HOCHKONZENTRIERT — Dosierungen genau einhalten, lieber weniger als mehr! Fasilitor immer zuletzt zugeben. EC regelmäßig messen.',
+      en: '<strong>⚠️ Aptus Concentrate:</strong> Aptus is HIGHLY CONCENTRATED — stick to exact doses, less is more! Fasilitor always last. Monitor EC regularly.',
+      it: '<strong>⚠️ Aptus Concentrato:</strong> Aptus è ALTAMENTE CONCENTRATO — rispettare le dosi esatte! Fasilitor sempre per ultimo.',
+      es: '<strong>⚠️ Aptus Concentrado:</strong> ¡Aptus es MUY CONCENTRADO — respetar dosis exactas! Fasilitor siempre al final.'
+    }
+  },
+  metrop: {
+    name: 'Metrop',
+    grow: [
+      { product: 'MR2 (Grow)',    weeks: [1,2,3,4,5,6,7,8], ml: [0.5,1,1.5,2,2,2,2,2] },
+      { product: 'Root+ ',        weeks: [1,2,3],            ml: 0.5 },
+      { product: 'CalMag',        weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'AMG (Enzymes)', weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    bloom: [
+      { product: 'MR1 (Bloom)',   weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,2.5,2.5,2,0] },
+      { product: 'Bloombooster',  weeks: [3,4,5,6],          ml: [1,2,2,1] },
+      { product: 'CalMag',        weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'AMG (Enzymes)', weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Metrop Konzentrat:</strong> Extrem konzentriert! MR1/MR2 = 1ml genügt für 2–3L. CalMag immer dabei bei Coco. AMG Enzyme wichtig für Substratvitalität.',
+      en: '<strong>⚠️ Metrop Concentrate:</strong> Extremely concentrated! MR1/MR2 = 1ml per 2–3L. CalMag always with coco. AMG enzymes important for substrate health.',
+      it: '<strong>⚠️ Metrop Concentrato:</strong> Estremamente concentrato! CalMag sempre con coco.',
+      es: '<strong>⚠️ Metrop Concentrado:</strong> ¡Extremadamente concentrado! CalMag siempre con coco.'
+    }
+  },
+  'top-crop': {
+    name: 'Top Crop',
+    grow: [
+      { product: 'Top Veg',       weeks: [1,2,3,4,5,6,7,8], ml: [1,2,3,4,4,4,4,4] },
+      { product: 'Top Candy',     weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'Top Inoculator',weeks: [1,2,3],            ml: 0.5 },
+      { product: 'Top Grow',      weeks: [1,2,3,4],          ml: [0.5,1,1,1] },
+    ],
+    bloom: [
+      { product: 'Top Bloom',     weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,4,4,4,3,0] },
+      { product: 'Top Candy',     weeks: [1,2,3,4,5,6,7,8], ml: [1,1,2,2,2,2,1,0] },
+      { product: 'Top Booster',   weeks: [3,4,5,6],          ml: [1,2,2,1] },
+      { product: 'Blaster',       weeks: [5,6,7],            ml: [1,2,1] },
+      { product: 'Top Inoculator',weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Top Crop:</strong> Top Inoculator enthält Mykorrhiza und Bakterien — gut für Substratleben. Top Candy (Zucker/Aminosäuren) fördert Aromen. Spanische Marke, sehr beliebt für Bio-Grows.',
+      en: '<strong>⚠️ Top Crop:</strong> Top Inoculator contains mycorrhiza and bacteria — good for soil life. Top Candy (sugars/amino acids) enhances terpenes. Spanish brand, very popular for organic grows.',
+      it: '<strong>⚠️ Top Crop:</strong> Top Inoculator contiene micorrize e batteri. Top Candy promuove i terpeni.',
+      es: '<strong>⚠️ Top Crop:</strong> Top Inoculator contiene micorrizas y bacterias. Top Candy mejora los terpenos. ¡Marca española!'
+    }
+  },
+  atami: {
+    name: "Atami B'Cuzz",
+    grow: [
+      { product: "B'Cuzz Soil A",    weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,2.5,2.5,2.5,2.5] },
+      { product: "B'Cuzz Soil B",    weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,2.5,2.5,2.5,2.5] },
+      { product: "B'Cuzz Root",      weeks: [1,2,3,4],          ml: [2,2,1,1] },
+      { product: "ATA Terra Grow",   weeks: [1,2,3,4,5,6,7,8], ml: [1,2,3,3,4,4,4,4] },
+    ],
+    bloom: [
+      { product: "B'Cuzz Soil A",    weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: "B'Cuzz Soil B",    weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: "ATA Terra Bloom",  weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,4,4,4,3,0] },
+      { product: "B'Cuzz Bloom",     weeks: [2,3,4,5,6],        ml: [1,2,3,3,2] },
+      { product: "Atami PK 13/14",   weeks: [4,5,6],            ml: 1.5 },
+    ],
+    addOrder: {
+      de: "<strong>⚠️ Atami B'Cuzz:</strong> A und B immer getrennt zugeben. ATA Terra-Linie ist die klassische Soil-Variante. B'Cuzz Bloom Stimulator ist sehr effektiv in Woche 3–5.",
+      en: "<strong>⚠️ Atami B'Cuzz:</strong> A and B always separate. ATA Terra line is the classic soil version. B'Cuzz Bloom Stimulator very effective in weeks 3–5.",
+      it: "<strong>⚠️ Atami B'Cuzz:</strong> A e B sempre separatamente. B'Cuzz Bloom Stimulator molto efficace nelle settimane 3–5.",
+      es: "<strong>⚠️ Atami B'Cuzz:</strong> A y B siempre por separado. B'Cuzz Bloom Stimulator muy efectivo en semanas 3–5."
+    }
+  },
+  shogun: {
+    name: 'Shogun Fertilisers',
+    grow: [
+      { product: 'Shogun Terra Grow A', weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,3,3,3,3] },
+      { product: 'Shogun Terra Grow B', weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,3,3,3,3] },
+      { product: 'Sumo Active Boost',   weeks: [1,2,3,4,5,6,7,8], ml: 0.3 },
+      { product: 'Dragon Force',        weeks: [5,6,7],            ml: 0.5 },
+      { product: 'CalMag',              weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    bloom: [
+      { product: 'Shogun Terra Bloom A', weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: 'Shogun Terra Bloom B', weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2.5,0] },
+      { product: 'Sumo Boost',           weeks: [2,3,4,5,6],       ml: [1,2,3,3,2] },
+      { product: 'Dragon Force',         weeks: [5,6,7],            ml: [1,2,1] },
+      { product: 'PK Warrior 9/18',      weeks: [4,5,6],            ml: 1 },
+      { product: 'CalMag',               weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Shogun:</strong> CalMag IMMER bei Coco/RO-Wasser. Dragon Force in der Spätblüte erhöht Dichte stark. Sumo Active Boost enthält Aminosäuren — ganzen Run nutzen.',
+      en: '<strong>⚠️ Shogun:</strong> CalMag ALWAYS with coco/RO water. Dragon Force late bloom increases density significantly. Sumo Active Boost has amino acids — use all run.',
+      it: '<strong>⚠️ Shogun:</strong> CalMag SEMPRE con coco. Dragon Force in tarda fioritura aumenta densità.',
+      es: '<strong>⚠️ Shogun:</strong> CalMag SIEMPRE con coco. Dragon Force en floración tardía aumenta densidad.'
+    }
+  },
+  'terra-aquatica': {
+    name: 'Terra Aquatica (ex-GHE)',
+    grow: [
+      { product: 'TriPart Grow',  weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,5,5,5,4,3] },
+      { product: 'TriPart Micro', weeks: [1,2,3,4,5,6,7,8], ml: [1,2,2,3,3,3,2,2] },
+      { product: 'TriPart Bloom', weeks: [1,2,3,4,5,6,7,8], ml: [0.5,1,1,1.5,1.5,1.5,1,0.5] },
+      { product: 'Pro Organic',   weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'BioRoots',      weeks: [1,2,3],            ml: 1.5 },
+    ],
+    bloom: [
+      { product: 'TriPart Grow',  weeks: [1,2,3,4,5,6,7,8], ml: [1.5,1,0.5,0.5,0.5,0.5,0,0] },
+      { product: 'TriPart Micro', weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2,0] },
+      { product: 'TriPart Bloom', weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,5,5,5,3,0] },
+      { product: 'Pro Organic',   weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'BioSevia Bloom',weeks: [3,4,5,6],          ml: [1,2,2,1] },
+      { product: 'Diamond Nectar',weeks: [1,2,3,4,5,6],      ml: 1.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Terra Aquatica (ex-GHE):</strong> TriPart Micro IMMER ZUERST ins Wasser, dann Grow, dann Bloom — niemals direkt mischen! Pro Organic verbessert Mikrobiologie.',
+      en: '<strong>⚠️ Terra Aquatica (ex-GHE):</strong> TriPart Micro ALWAYS FIRST in water, then Grow, then Bloom — never mix directly! Pro Organic improves microbiology.',
+      it: '<strong>⚠️ Terra Aquatica:</strong> TriPart Micro SEMPRE PRIMA, poi Grow, poi Bloom — mai mescolare direttamente!',
+      es: '<strong>⚠️ Terra Aquatica:</strong> TriPart Micro SIEMPRE PRIMERO, luego Grow, luego Bloom — ¡nunca mezclar directamente!'
+    }
+  }
+};
+
+,
+  athena: {
+    name: 'Athena Nutrients',
+    grow: [
+      { product: 'Athena Grow A',   weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,3,3,3,3] },
+      { product: 'Athena Grow B',   weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,3,3,3,3] },
+      { product: 'Core',            weeks: [1,2,3,4,5,6,7,8], ml: [0.5,1,1,1.5,1.5,1.5,1.5,1.5] },
+      { product: 'Cleanse',         weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Stack',           weeks: [4,5,6,7,8],        ml: [0.5,1,1,1,1] },
+    ],
+    bloom: [
+      { product: 'Athena Bloom A',  weeks: [1,2,3,4,5,6,7,8], ml: [1.5,2,2.5,3,3,3,2.5,0] },
+      { product: 'Athena Bloom B',  weeks: [1,2,3,4,5,6,7,8], ml: [1.5,2,2.5,3,3,3,2.5,0] },
+      { product: 'Core',            weeks: [1,2,3,4,5,6,7,8], ml: [1.5,1.5,1.5,1.5,1.5,1.5,1,0] },
+      { product: 'Stack',           weeks: [1,2,3,4,5,6,7],   ml: [0.5,1,1.5,2,2,1.5,1] },
+      { product: 'Balance',         weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Cleanse',         weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Athena:</strong> A und B IMMER getrennt zugeben — nie direkt mischen! Cleanse jedes Gießen für saubere Wurzelzone. Balance hält pH stabil. Stack ist der Bloom-Booster. Sehr beliebt in professionellen Grows.',
+      en: '<strong>⚠️ Athena:</strong> A and B ALWAYS separate — never mix directly! Cleanse every watering for clean root zone. Balance stabilizes pH. Stack is the bloom booster. Very popular in professional grows.',
+      it: '<strong>⚠️ Athena:</strong> A e B SEMPRE separatamente. Cleanse ad ogni innaffiatura. Balance stabilizza il pH.',
+      es: '<strong>⚠️ Athena:</strong> A y B SIEMPRE por separado. Cleanse en cada riego. Balance estabiliza el pH.'
+    }
+  },
+  greenhouse: {
+    name: 'Green House Feeding',
+    grow: [
+      { product: 'Bio Grow (g/10L)',    weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2,2.5,2.5,2.5,2.5] },
+      { product: 'BioEnhancer (g/10L)', weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Trycho+ (g/Topf)',    weeks: [1,2],              ml: 1 },
+      { product: 'Bacto+ (g/10L)',      weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    bloom: [
+      { product: 'Bio Bloom (g/10L)',   weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2.5,2.5,2.5,2,0] },
+      { product: 'BioEnhancer (g/10L)', weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Top Feeding (g/Topf)',weeks: [1,3,5,7],          ml: 2 },
+      { product: 'Bacto+ (g/10L)',      weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Powder Feeding (g)',  weeks: [2,3,4,5,6],        ml: [0.5,1,1,1,0.5] },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Green House Feeding:</strong> Pulverdünger (Powder/Bio) erst in wenig warmem Wasser auflösen, dann auffüllen. Top Feeding direkt aufs Substrat geben (kein Gießen danach sofort). Trycho+ nur einmalig bei Topfung. Bio-Linie = kein pH-Stress.',
+      en: '<strong>⚠️ Green House Feeding:</strong> Dissolve powder first in a little warm water, then top up. Top Feeding directly onto substrate (do not water immediately after). Trycho+ only once at potting. Bio line = no pH stress.',
+      it: '<strong>⚠️ Green House Feeding:</strong> Sciogliere la polvere prima in poca acqua calda. Top Feeding direttamente sul substrato. Trycho+ una sola volta al rinvaso.',
+      es: '<strong>⚠️ Green House Feeding:</strong> Disolver el polvo primero en poca agua caliente. Top Feeding directamente al sustrato. Trycho+ solo una vez al trasplantar.'
+    }
+  }
+
 };
 
 // === CHART ===
