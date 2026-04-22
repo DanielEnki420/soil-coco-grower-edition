@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soil & Coco Grower Edition v1.0</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  /* === RESET & BASE === */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0f0f0f;
+    --bg2: #161616;
+    --bg3: #1e1e1e;
+    --bg4: #252525;
+    --border: #2e2e2e;
+    --text: #e8e0d5;
+    --text2: #a09880;
+    --text3: #6b6050;
+    --accent: #8b7355;     /* earth brown */
+    --accent2: #6b8c5a;    /* leaf green */
+    --accent3: #c4a882;    /* sand */
+    --coco: #c47a35;       /* coco orange */
+    --soil: #7a5c3a;       /* soil brown */
+    --ok: #6b8c5a;
+    --warn: #c4a040;
+    --err: #c45a3a;
+    --font: 'DM Mono', 'Courier New', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-title h1 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent3);
+    letter-spacing: 0.5px;
+  }
+  .header-title .badge {
+    font-size: 11px;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  .header-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* === SUBSTRATE SELECTOR === */
+  .substrate-bar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .substrate-bar label {
+    font-size: 11px;
+    color: var(--text2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 4px;
+  }
+  .sub-btn {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text2);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+  .sub-btn.active[data-sub="coco"] { background: var(--coco); color: #fff; border-color: var(--coco); }
+  .sub-btn.active[data-sub="soil"] { background: var(--soil); color: #e8d5c0; border-color: var(--soil); }
+  .sub-btn.active[data-sub="mix"]  { background: #7a6a40; color: #e8d5b0; border-color: #7a6a40; }
+  .sub-btn:not(.active):hover { border-color: var(--accent); color: var(--text); }
+
+  /* === LANG BUTTONS === */
+  .lang-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text3);
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font);
+  }
+  .lang-btn.active { border-color: var(--accent); color: var(--accent3); }
+
+  /* === MAIN LAYOUT === */
+  .main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media(max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* === CARDS === */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text2);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title span { font-size: 15px; }
+
+  /* === SENSOR INPUTS === */
+  .sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media(max-width: 600px) { .sensor-grid { grid-template-columns: 1fr 1fr; } }
+  .sensor-item label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text3);
+    margin-bottom: 4px;
+  }
+  .sensor-item input {
+    width: 100%;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 20px;
+    text-align: center;
+    transition: border-color 0.2s;
+  }
+  .sensor-item input:focus { outline: none; border-color: var(--accent); }
+  .sensor-item .unit {
+    font-size: 10px;
+    color: var(--text3);
+    text-align: center;
+    margin-top: 3px;
+  }
+  .sensor-item .range-hint {
+    font-size: 10px;
+    text-align: center;
+    margin-top: 2px;
+    color: var(--text3);
+  }
+
+  /* === STATUS BAR === */
+  .status-bar {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+  }
+  .status-ok   { border-color: var(--ok);   color: var(--ok); }
+  .status-warn { border-color: var(--warn); color: var(--warn); }
+  .status-err  { border-color: var(--err);  color: var(--err); }
+
+  /* === RUNOFF === */
+  .runoff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* === WATERING REMINDER === */
+  .water-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .water-info-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .water-info-item .label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+  .water-info-item .value { font-size: 18px; color: var(--accent3); margin-top: 2px; }
+  .last-watered-btn, .btn {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font);
+    font-size: 12px;
+    transition: all 0.2s;
+  }
+  .btn:hover, .last-watered-btn:hover { border-color: var(--accent); color: var(--text); }
+  .btn-primary {
+    background: var(--accent2);
+    border-color: var(--accent2);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #5a7a4a; border-color: #5a7a4a; }
+
+  /* === SELECT === */
+  select {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  select:focus { outline: none; border-color: var(--accent); }
+
+  /* === PHASE / WEEK === */
+  .phase-week-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .phase-week-row label { font-size: 11px; color: var(--text3); }
+
+  /* === NUTRIENT CALC === */
+  .nutrient-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .nutrient-table th {
+    text-align: left;
+    padding: 6px 10px;
+    color: var(--text3);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nutrient-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .nutrient-table tr:last-child td { border-bottom: none; }
+  .nutrient-table .amount { color: var(--accent3); font-size: 15px; font-weight: 600; }
+  .nutrient-table .product { color: var(--text2); }
+  .volume-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .volume-row label { font-size: 12px; color: var(--text2); }
+  .volume-row input {
+    width: 80px;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 16px;
+    text-align: center;
+  }
+  .volume-row input:focus { outline: none; border-color: var(--accent); }
+  .add-order {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 10px;
+    line-height: 1.8;
+  }
+  .add-order strong { color: var(--warn); }
+
+  /* === GROW LOG === */
+  .log-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: end;
+  }
+  @media(max-width:700px) { .log-input-row { grid-template-columns: 1fr 1fr; } }
+  .log-input-row input, .log-input-row textarea {
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 13px;
+    width: 100%;
+    resize: none;
+  }
+  .log-input-row input:focus, .log-input-row textarea:focus { outline: none; border-color: var(--accent); }
+  .log-input-row label { font-size: 10px; color: var(--text3); display: block; margin-bottom: 3px; }
+  .log-entries { margin-top: 12px; max-height: 300px; overflow-y: auto; }
+  .log-entry {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .log-entry .log-meta { color: var(--text2); margin-bottom: 4px; }
+  .log-entry .log-note { color: var(--text3); }
+  .log-entry .log-values { color: var(--accent3); font-size: 11px; margin-bottom: 3px; }
+
+  /* === CHART === */
+  .chart-container { position: relative; height: 200px; }
+
+  /* === GEMINI === */
+  .gemini-section { margin-top: 16px; }
+  .gemini-key-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .gemini-key-row input {
+    flex: 1;
+    min-width: 200px;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 13px;
+  }
+  .gemini-key-row input:focus { outline: none; border-color: var(--accent); }
+  .chat-window {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    min-height: 120px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .chat-msg { margin-bottom: 10px; }
+  .chat-msg .role { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .chat-msg.user .role { color: var(--accent2); }
+  .chat-msg.ai .role { color: var(--accent3); }
+  .chat-msg.ai .content { color: var(--text2); }
+  .chat-input-row {
+    display: flex;
+    gap: 8px;
+  }
+  .chat-input-row textarea {
+    flex: 1;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: var(--font);
+    font-size: 13px;
+    resize: none;
+    height: 60px;
+  }
+  .chat-input-row textarea:focus { outline: none; border-color: var(--accent); }
+  .api-hint { font-size: 11px; color: var(--text3); margin-top: 6px; }
+  .api-hint a { color: var(--accent); }
+
+  /* === TIPS === */
+  .tip-box {
+    background: var(--bg3);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    margin-top: 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .tip-box.warn { border-left-color: var(--warn); }
+  .tip-box strong { color: var(--accent3); }
+
+  /* === FOOTER === */
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text3);
+    font-size: 11px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* === SCROLLBAR === */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-title">
+    <span>🌱</span>
+    <h1 id="app-title">Soil &amp; Coco Grower Edition</h1>
+    <span class="badge">v1.0</span>
+  </div>
+  <div class="header-controls">
+    <button class="lang-btn active" data-lang="de">🇩🇪 DE</button>
+    <button class="lang-btn" data-lang="en">🇬🇧 EN</button>
+    <button class="lang-btn" data-lang="it">🇮🇹 IT</button>
+    <button class="lang-btn" data-lang="es">🇪🇸 ES</button>
+  </div>
+</header>
+
+<!-- SUBSTRATE SELECTOR -->
+<div class="substrate-bar">
+  <label data-i18n="substrate">Substrat:</label>
+  <button class="sub-btn" data-sub="coco" onclick="setSubstrate('coco')">🥥 Coco</button>
+  <button class="sub-btn active" data-sub="soil" onclick="setSubstrate('soil')">🌍 Erde</button>
+  <button class="sub-btn" data-sub="mix" onclick="setSubstrate('mix')">🌍🥥 Coco/Erde Mix</button>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ROW 1: Sensor + Watering -->
+  <div class="grid-2">
+
+    <!-- SENSOR CARD -->
+    <div class="card">
+      <div class="card-title"><span>🌡️</span> <span data-i18n="sensor_title">Messwerte (manuell)</span></div>
+      <div class="sensor-grid">
+        <div class="sensor-item">
+          <label>pH</label>
+          <input type="number" id="ph" step="0.1" min="0" max="14" placeholder="–" oninput="updateStatus()">
+          <div class="unit">pH</div>
+          <div class="range-hint" id="ph-range">Ziel: 6.0 – 7.0</div>
+        </div>
+        <div class="sensor-item">
+          <label>EC</label>
+          <input type="number" id="ec" step="0.1" min="0" max="5" placeholder="–" oninput="updateStatus()">
+          <div class="unit">mS/cm</div>
+          <div class="range-hint" id="ec-range">Ziel: 1.0 – 1.6</div>
+        </div>
+        <div class="sensor-item">
+          <label data-i18n="temp">Temp</label>
+          <input type="number" id="temp" step="0.5" min="0" max="45" placeholder="–" oninput="updateStatus()">
+          <div class="unit">°C</div>
+          <div class="range-hint">Ziel: 18 – 26°C</div>
+        </div>
+      </div>
+      <div class="status-bar" id="status-bar">ℹ️ Werte eingeben für Empfehlung...</div>
+
+      <!-- RUNOFF -->
+      <div class="card-title" style="margin-top:16px;"><span>🔁</span> <span data-i18n="runoff_title">Abfluss (Runoff)</span></div>
+      <div class="runoff-grid">
+        <div class="sensor-item">
+          <label data-i18n="runoff_ph">Runoff pH</label>
+          <input type="number" id="runoff-ph" step="0.1" min="0" max="14" placeholder="–" oninput="updateRunoff()">
+          <div class="unit">pH</div>
+        </div>
+        <div class="sensor-item">
+          <label data-i18n="runoff_ec">Runoff EC</label>
+          <input type="number" id="runoff-ec" step="0.1" min="0" max="10" placeholder="–" oninput="updateRunoff()">
+          <div class="unit">mS/cm</div>
+        </div>
+      </div>
+      <div class="status-bar" id="runoff-bar" style="margin-top:10px;">ℹ️ Runoff messen nach dem Gießen</div>
+    </div>
+
+    <!-- WATERING REMINDER -->
+    <div class="card">
+      <div class="card-title"><span>💧</span> <span data-i18n="water_title">Gieß-Erinnerung</span></div>
+      <div class="water-info">
+        <div class="water-info-item">
+          <div class="label" data-i18n="last_watered">Letztes Gießen</div>
+          <div class="value" id="last-watered-display">–</div>
+        </div>
+        <div class="water-info-item">
+          <div class="label" data-i18n="next_water">Nächstes Gießen</div>
+          <div class="value" id="next-water-display">–</div>
+        </div>
+        <div class="water-info-item">
+          <div class="label" data-i18n="waterings_count">Gießungen gesamt</div>
+          <div class="value" id="watering-count">0</div>
+        </div>
+        <div class="water-info-item">
+          <div class="label" data-i18n="feed_next">Nächste: Nährstoffe?</div>
+          <div class="value" id="feed-next-display">–</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="logWatering(true)" data-i18n="btn_watered_feed">✅ Gegossen + Nährstoffe</button>
+        <button class="btn" onclick="logWatering(false)" data-i18n="btn_watered_plain">💧 Nur Wasser</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;">
+        <label style="font-size:12px;color:var(--text2);" data-i18n="interval_label">Intervall:</label>
+        <select id="water-interval" onchange="saveState()">
+          <option value="1">1 Tag (Coco täglich)</option>
+          <option value="2" selected>2 Tage</option>
+          <option value="3">3 Tage</option>
+          <option value="4">4 Tage</option>
+          <option value="7">7 Tage</option>
+        </select>
+        <label style="font-size:12px;color:var(--text2);" data-i18n="feed_every">Nährstoffe alle:</label>
+        <select id="feed-interval" onchange="saveState()">
+          <option value="1">Jedes Mal (Coco)</option>
+          <option value="2" selected>Jedes 2. Mal</option>
+          <option value="3">Jedes 3. Mal</option>
+        </select>
+      </div>
+      <div id="substrate-tip" class="tip-box"></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Nutrient Calculator -->
+  <div class="card">
+    <div class="card-title"><span>🧪</span> <span data-i18n="nutrient_title">Nährstoff-Dosierung</span></div>
+    <div class="phase-week-row">
+      <label data-i18n="brand_label">Marke:</label>
+      <select id="brand-select" onchange="renderNutrients()">
+        <option value="hesi">🌿 Hesi (Soil)</option>
+        <option value="biobizz">🍃 Biobizz</option>
+        <option value="canna-terra">🌺 Canna Terra</option>
+        <option value="canna-coco">🥥 Canna Coco</option>
+        <option value="plagron-soil">🌱 Plagron Soil</option>
+        <option value="plagron-coco">🌱 Plagron Coco</option>
+        <option value="ghe">🧪 GHE Flora Series</option>
+        <option value="advanced">⚡ Advanced Nutrients</option>
+      </select>
+      <label data-i18n="phase_label">Phase:</label>
+      <select id="phase-select" onchange="renderNutrients()">
+        <option value="grow">🌱 Wuchs (Grow)</option>
+        <option value="bloom">🌸 Blüte (Bloom)</option>
+        <option value="flush">💦 Flush</option>
+      </select>
+      <label data-i18n="week_label">Woche:</label>
+      <select id="week-select" onchange="renderNutrients()">
+        <option value="1">1</option><option value="2">2</option>
+        <option value="3">3</option><option value="4">4</option>
+        <option value="5">5</option><option value="6">6</option>
+        <option value="7">7</option><option value="8">8</option>
+        <option value="9">9</option><option value="10">10</option>
+        <option value="11">11</option><option value="12">12</option>
+      </select>
+    </div>
+    <div class="volume-row">
+      <label data-i18n="volume_label">Volumen:</label>
+      <input type="number" id="volume" value="10" min="1" max="500" step="1" oninput="renderNutrients()">
+      <span style="color:var(--text2);font-size:13px;">Liter</span>
+    </div>
+    <table class="nutrient-table" id="nutrient-table"></table>
+    <div class="add-order" id="add-order"></div>
+  </div>
+
+  <!-- ROW 3: Chart + Log -->
+  <div class="grid-2">
+
+    <!-- CHART -->
+    <div class="card">
+      <div class="card-title"><span>📈</span> <span data-i18n="chart_title">Verlauf</span></div>
+      <div class="chart-container">
+        <canvas id="grow-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- GROW LOG -->
+    <div class="card">
+      <div class="card-title"><span>📝</span> <span data-i18n="log_title">Grow Diary</span></div>
+      <div class="log-input-row">
+        <div>
+          <label>pH</label>
+          <input type="number" id="log-ph" step="0.1" placeholder="6.5">
+        </div>
+        <div>
+          <label>EC</label>
+          <input type="number" id="log-ec" step="0.1" placeholder="1.4">
+        </div>
+        <div>
+          <label>Temp °C</label>
+          <input type="number" id="log-temp" step="0.5" placeholder="22">
+        </div>
+        <div>
+          <label data-i18n="log_runoff">Runoff pH</label>
+          <input type="number" id="log-rpH" step="0.1" placeholder="6.5">
+        </div>
+        <div>
+          <label data-i18n="log_note">Notiz</label>
+          <textarea id="log-note" placeholder="Beobachtungen..."></textarea>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addLogEntry()" data-i18n="btn_save">➕ Eintrag speichern</button>
+      <div class="log-entries" id="log-entries"></div>
+    </div>
+  </div>
+
+  <!-- GEMINI AGENT -->
+  <div class="card gemini-section">
+    <div class="card-title"><span>🤖</span> <span data-i18n="ai_title">Grow-Assistent (Gemini)</span></div>
+    <div class="gemini-key-row">
+      <input type="password" id="gemini-key" placeholder="Gemini API Key..." oninput="saveApiKey()">
+      <button class="btn btn-primary" onclick="saveApiKey()" data-i18n="btn_save_key">💾 Speichern</button>
+    </div>
+    <div class="chat-window" id="chat-window">
+      <div class="chat-msg ai">
+        <div class="role">Grow-Assistent</div>
+        <div class="content" data-i18n="ai_welcome">Hallo! Ich helfe dir mit deinem Soil/Coco Grow. Frag mich alles — Nährstoffe, pH-Probleme, Diagnose, Tipps.</div>
+      </div>
+    </div>
+    <div class="chat-input-row">
+      <textarea id="chat-input" placeholder="Frage stellen..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea>
+      <button class="btn btn-primary" onclick="sendChat()">➤</button>
+    </div>
+    <div class="api-hint">Key kostenlos: <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> — Alles läuft lokal, kein Server.</div>
+  </div>
+
+</main>
+
+<footer>
+  Soil &amp; Coco Grower Edition — Freie Software 🌱 Kein Login, keine Cloud, alles lokal. &nbsp;|&nbsp;
+  <a href="https://github.com/DanielEnki420/soil-coco-grower-edition" target="_blank">GitHub</a> &nbsp;|&nbsp;
+  DWC Edition: <a href="https://danielenki420.github.io/dwc-grower-edition/" target="_blank">dwc-grower-edition</a>
+</footer>
+
+<script>
+/* ================================================================
+   SOIL & COCO GROWER EDITION v1.0
+   Single-file, Vanilla JS, localStorage, kein Framework
+   by DanielEnki420 — github.com/DanielEnki420/soil-coco-grower-edition
+================================================================ */
+
+// === STATE ===
+let state = {
+  substrate: 'soil',   // 'soil' | 'coco' | 'mix'
+  lang: 'de',
+  wateringCount: 0,
+  lastWatered: null,
+  waterInterval: 2,
+  feedInterval: 2,
+  logs: [],
+  apiKey: ''
+};
+
+// === I18N ===
+const i18n = {
+  de: {
+    substrate: 'Substrat',
+    sensor_title: 'Messwerte (manuell)',
+    runoff_title: 'Abfluss (Runoff)',
+    runoff_ph: 'Runoff pH',
+    runoff_ec: 'Runoff EC',
+    water_title: 'Gieß-Erinnerung',
+    last_watered: 'Letztes Gießen',
+    next_water: 'Nächstes Gießen',
+    waterings_count: 'Gießungen gesamt',
+    feed_next: 'Nächste: Nährstoffe?',
+    btn_watered_feed: '✅ Gegossen + Nährstoffe',
+    btn_watered_plain: '💧 Nur Wasser',
+    interval_label: 'Intervall:',
+    feed_every: 'Nährstoffe alle:',
+    brand_label: 'Marke:',
+    phase_label: 'Phase:',
+    week_label: 'Woche:',
+    volume_label: 'Volumen:',
+    nutrient_title: 'Nährstoff-Dosierung',
+    chart_title: 'Verlauf',
+    log_title: 'Grow Diary',
+    log_runoff: 'Runoff pH',
+    log_note: 'Notiz',
+    btn_save: '➕ Eintrag speichern',
+    ai_title: 'Grow-Assistent (Gemini)',
+    btn_save_key: '💾 Speichern',
+    ai_welcome: 'Hallo! Ich helfe dir mit deinem Soil/Coco Grow. Frag mich alles — Nährstoffe, pH-Probleme, Diagnose, Tipps.',
+  },
+  en: {
+    substrate: 'Substrate',
+    sensor_title: 'Sensor Values (manual)',
+    runoff_title: 'Runoff',
+    runoff_ph: 'Runoff pH',
+    runoff_ec: 'Runoff EC',
+    water_title: 'Watering Reminder',
+    last_watered: 'Last Watering',
+    next_water: 'Next Watering',
+    waterings_count: 'Total Waterings',
+    feed_next: 'Next: Nutrients?',
+    btn_watered_feed: '✅ Watered + Nutrients',
+    btn_watered_plain: '💧 Water Only',
+    interval_label: 'Interval:',
+    feed_every: 'Feed every:',
+    brand_label: 'Brand:',
+    phase_label: 'Phase:',
+    week_label: 'Week:',
+    volume_label: 'Volume:',
+    nutrient_title: 'Nutrient Calculator',
+    chart_title: 'History',
+    log_title: 'Grow Diary',
+    log_runoff: 'Runoff pH',
+    log_note: 'Note',
+    btn_save: '➕ Save Entry',
+    ai_title: 'Grow Assistant (Gemini)',
+    btn_save_key: '💾 Save',
+    ai_welcome: 'Hello! I can help with your Soil/Coco grow. Ask anything — nutrients, pH issues, diagnosis, tips.',
+  },
+  it: {
+    substrate: 'Substrato',
+    sensor_title: 'Valori (manuale)',
+    runoff_title: 'Deflusso (Runoff)',
+    runoff_ph: 'Runoff pH',
+    runoff_ec: 'Runoff EC',
+    water_title: 'Promemoria innaffiatura',
+    last_watered: 'Ultima innaffiatura',
+    next_water: 'Prossima innaffiatura',
+    waterings_count: 'Innaffiature totali',
+    feed_next: 'Prossima: Nutrienti?',
+    btn_watered_feed: '✅ Innaffiato + Nutrienti',
+    btn_watered_plain: '💧 Solo acqua',
+    interval_label: 'Intervallo:',
+    feed_every: 'Nutrienti ogni:',
+    brand_label: 'Marca:',
+    phase_label: 'Fase:',
+    week_label: 'Settimana:',
+    volume_label: 'Volume:',
+    nutrient_title: 'Calcolatore Nutrienti',
+    chart_title: 'Andamento',
+    log_title: 'Diario di coltivazione',
+    log_runoff: 'Runoff pH',
+    log_note: 'Nota',
+    btn_save: '➕ Salva voce',
+    ai_title: 'Assistente (Gemini)',
+    btn_save_key: '💾 Salva',
+    ai_welcome: 'Ciao! Ti aiuto con la tua coltivazione. Chiedimi tutto.',
+  },
+  es: {
+    substrate: 'Sustrato',
+    sensor_title: 'Valores del sensor (manual)',
+    runoff_title: 'Escorrentía (Runoff)',
+    runoff_ph: 'Runoff pH',
+    runoff_ec: 'Runoff EC',
+    water_title: 'Recordatorio de riego',
+    last_watered: 'Último riego',
+    next_water: 'Próximo riego',
+    waterings_count: 'Riegos totales',
+    feed_next: 'Próximo: ¿Nutrientes?',
+    btn_watered_feed: '✅ Regado + Nutrientes',
+    btn_watered_plain: '💧 Solo agua',
+    interval_label: 'Intervalo:',
+    feed_every: 'Nutrientes cada:',
+    brand_label: 'Marca:',
+    phase_label: 'Fase:',
+    week_label: 'Semana:',
+    volume_label: 'Volumen:',
+    nutrient_title: 'Calculadora de Nutrientes',
+    chart_title: 'Historial',
+    log_title: 'Diario del cultivo',
+    log_runoff: 'Runoff pH',
+    log_note: 'Nota',
+    btn_save: '➕ Guardar entrada',
+    ai_title: 'Asistente (Gemini)',
+    btn_save_key: '💾 Guardar',
+    ai_welcome: 'Hola! Te ayudo con tu cultivo. Pregúntame lo que quieras.',
+  }
+};
+
+// === SUBSTRATE TARGETS ===
+const substrateTargets = {
+  soil: {
+    phMin: 6.0, phMax: 7.0,
+    ecGrowMin: 1.0, ecGrowMax: 1.6,
+    ecBloomMin: 1.2, ecBloomMax: 1.8,
+    tempMin: 18, tempMax: 26,
+    label: 'Erde',
+    color: '#7a5c3a',
+    feedTip: {
+      de: '🌍 Erde: Erst gießen wenn die obersten 2–3 cm trocken sind. Nährstoffe alle 2–3 Gießungen. Runoff anstreben: ~10–20%.',
+      en: '🌍 Soil: Water when top 2–3 cm are dry. Feed every 2–3 waterings. Aim for ~10–20% runoff.',
+      it: '🌍 Terra: Innaffia quando i 2–3 cm superiori sono asciutti. Nutrienti ogni 2–3 innaffiature.',
+      es: '🌍 Tierra: Riega cuando los 2–3 cm superiores estén secos. Nutrientes cada 2–3 riegos.'
+    }
+  },
+  coco: {
+    phMin: 5.8, phMax: 6.3,
+    ecGrowMin: 1.2, ecGrowMax: 2.0,
+    ecBloomMin: 1.4, ecBloomMax: 2.2,
+    tempMin: 18, tempMax: 26,
+    label: 'Coco',
+    color: '#c47a35',
+    feedTip: {
+      de: '🥥 Coco: Täglich gießen, immer feucht halten. Mit JEDEM Guss Nährstoffe zugeben. Runoff ~10–20% erwünscht. Auf keinen Fall komplett austrocknen lassen!',
+      en: '🥥 Coco: Water daily, keep always moist. Add nutrients with EVERY watering. Target ~10–20% runoff. Never let it dry out!',
+      it: '🥥 Coco: Innaffia quotidianamente, sempre umido. Aggiungi nutrienti ad OGNI innaffiatura. ~10–20% di runoff.',
+      es: '🥥 Coco: Riega diariamente, mantén siempre húmedo. Añade nutrientes en CADA riego. ~10–20% de escorrentía.'
+    }
+  },
+  mix: {
+    phMin: 6.0, phMax: 6.5,
+    ecGrowMin: 1.0, ecGrowMax: 1.8,
+    ecBloomMin: 1.2, ecBloomMax: 2.0,
+    tempMin: 18, tempMax: 26,
+    label: 'Coco/Erde Mix',
+    color: '#7a6a40',
+    feedTip: {
+      de: '🌍🥥 Mix: Gießen wenn obere Schicht leicht trocken ist (nicht ganz durchtrocknen). Nährstoffe jedes 2. Mal. Runoff ~10%.',
+      en: '🌍🥥 Mix: Water when top layer is slightly dry. Feed every 2nd watering. ~10% runoff.',
+      it: '🌍🥥 Mix: Innaffia quando lo strato superiore è leggermente asciutto. Nutrienti ogni 2a innaffiatura.',
+      es: '🌍🥥 Mix: Riega cuando la capa superior esté ligeramente seca. Nutrientes cada 2o riego.'
+    }
+  }
+};
+
+// === NUTRIENT DATABASE ===
+// ml per 10L at given week
+const nutrients = {
+  hesi: {
+    name: 'Hesi (Soil)',
+    grow: [
+      { product: 'Root Complex', weeks: [1,2,3], ml: 5 },
+      { product: 'TNT Complex', weeks: [1,2,3,4,5,6,7,8], ml: [5,8,10,12,15,15,15,15] },
+      { product: 'SuperVit',    weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'PowerZyme',   weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    bloom: [
+      { product: 'Bloom Complex', weeks: [1,2,3,4,5,6], ml: [10,12,15,15,15,15] },
+      { product: 'Boost',         weeks: [1,2,3,4,5,6], ml: [5,8,10,10,10,10] },
+      { product: 'PK 13/14',      weeks: [5,6],         ml: 5 },
+      { product: 'SuperVit',      weeks: [1,2,3,4,5,6], ml: 1 },
+      { product: 'PowerZyme',     weeks: [1,2,3,4,5,6], ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Reihenfolge:</strong> PowerZyme → TNT/Bloom Complex → Boost → PK 13/14 → SuperVit → pH einstellen',
+      en: '<strong>⚠️ Order:</strong> PowerZyme → TNT/Bloom Complex → Boost → PK 13/14 → SuperVit → adjust pH',
+      it: '<strong>⚠️ Ordine:</strong> PowerZyme → TNT/Bloom Complex → Boost → PK 13/14 → SuperVit → regola pH',
+      es: '<strong>⚠️ Orden:</strong> PowerZyme → TNT/Bloom Complex → Boost → PK 13/14 → SuperVit → ajustar pH'
+    }
+  },
+  biobizz: {
+    name: 'Biobizz',
+    grow: [
+      { product: 'Bio·Grow',   weeks: [1,2,3,4,5,6,7,8], ml: [1,2,3,4,4,4,4,4] },
+      { product: 'RootJuice',  weeks: [1,2,3],            ml: 2.5 },
+      { product: 'Alg·A·Mic',  weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'CalMag',     weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    bloom: [
+      { product: 'Bio·Bloom',  weeks: [1,2,3,4,5,6,7,8,9], ml: [1,2,3,4,4,4,3,2,1] },
+      { product: 'TopMax',     weeks: [2,3,4,5,6,7],       ml: [0.5,1,2,2.5,2.5,2] },
+      { product: 'Alg·A·Mic',  weeks: [1,2,3,4,5,6,7,8,9], ml: 0.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Biobizz Hinweis:</strong> Bio-Dünger erst in Wasser lösen, dann pH prüfen (organische Dünger senken pH leicht).',
+      en: '<strong>⚠️ Biobizz note:</strong> Dissolve bio nutrients in water first, then check pH (organics lower pH slightly).',
+      it: '<strong>⚠️ Nota Biobizz:</strong> Sciogliere prima in acqua, poi controllare il pH.',
+      es: '<strong>⚠️ Nota Biobizz:</strong> Disolver primero en agua, luego revisar pH.'
+    }
+  },
+  'canna-terra': {
+    name: 'Canna Terra',
+    grow: [
+      { product: 'Terra Vega A', weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,3,3] },
+      { product: 'Terra Vega B', weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,3,3] },
+      { product: 'Rhizotonic',   weeks: [1,2,3],            ml: 4 },
+      { product: 'Cannazym',     weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    bloom: [
+      { product: 'Terra Flores A', weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Terra Flores B', weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Boost',          weeks: [2,3,4,5,6,7],     ml: [1.5,2,2,2,2,1.5] },
+      { product: 'PK 13/14',       weeks: [4,5,6],           ml: 1.5 },
+      { product: 'Cannazym',       weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Reihenfolge:</strong> Immer Teil A und B getrennt zugeben, niemals direkt mischen!',
+      en: '<strong>⚠️ Order:</strong> Always add Part A and B separately, never mix directly!',
+      it: '<strong>⚠️ Ordine:</strong> Sempre aggiungere la Parte A e B separatamente, mai mescolare direttamente!',
+      es: '<strong>⚠️ Orden:</strong> Siempre añadir Parte A y B por separado, ¡nunca mezclar directamente!'
+    }
+  },
+  'canna-coco': {
+    name: 'Canna Coco',
+    grow: [
+      { product: 'Coco A',     weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,3,3] },
+      { product: 'Coco B',     weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,3,3] },
+      { product: 'Rhizotonic', weeks: [1,2,3],            ml: 4 },
+      { product: 'Cannazym',   weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    bloom: [
+      { product: 'Coco A',    weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Coco B',    weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Boost',     weeks: [2,3,4,5,6,7],     ml: [1.5,2,2,2,2,1.5] },
+      { product: 'PK 13/14',  weeks: [4,5,6],           ml: 1.5 },
+      { product: 'Cannazym',  weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Coco:</strong> A und B immer getrennt zugeben. Täglich gießen mit Nährstoffen!',
+      en: '<strong>⚠️ Coco:</strong> Always add A and B separately. Water daily with nutrients!',
+      it: '<strong>⚠️ Coco:</strong> Aggiungere A e B separatamente. Innaffiare ogni giorno con nutrienti!',
+      es: '<strong>⚠️ Coco:</strong> Añadir A y B por separado. ¡Regar diariamente con nutrientes!'
+    }
+  },
+  'plagron-soil': {
+    name: 'Plagron Soil',
+    grow: [
+      { product: 'Alga Grow',   weeks: [1,2,3,4,5,6,7,8], ml: [1.5,2,3,4,4,4,4,4] },
+      { product: 'Power Roots', weeks: [1,2,3],            ml: 2 },
+      { product: 'Green Sensation', weeks: [5,6,7,8],    ml: 1 },
+    ],
+    bloom: [
+      { product: 'Alga Bloom',      weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,4,4,4,3,0] },
+      { product: 'Green Sensation', weeks: [3,4,5,6,7],       ml: [0.5,1,1,1,0.5] },
+      { product: 'Sugar Royal',     weeks: [4,5,6,7],         ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Plagron:</strong> Produkte einzeln zugeben, gut auflösen lassen. Green Sensation erhöht EC!',
+      en: '<strong>⚠️ Plagron:</strong> Add products individually. Green Sensation raises EC!',
+      it: '<strong>⚠️ Plagron:</strong> Aggiungere i prodotti singolarmente. Green Sensation aumenta EC!',
+      es: '<strong>⚠️ Plagron:</strong> Añadir productos individualmente. ¡Green Sensation sube el EC!'
+    }
+  },
+  'plagron-coco': {
+    name: 'Plagron Coco',
+    grow: [
+      { product: 'Cocos A',     weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,3,3] },
+      { product: 'Cocos B',     weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,3,3] },
+      { product: 'Power Roots', weeks: [1,2,3],            ml: 2 },
+    ],
+    bloom: [
+      { product: 'Cocos A',         weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Cocos B',         weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Green Sensation', weeks: [3,4,5,6,7],       ml: [0.5,1,1,1,0.5] },
+      { product: 'Sugar Royal',     weeks: [4,5,6,7],         ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Plagron Coco:</strong> A und B getrennt zugeben. Täglich gießen!',
+      en: '<strong>⚠️ Plagron Coco:</strong> Add A and B separately. Water daily!',
+      it: '<strong>⚠️ Plagron Coco:</strong> A e B separatamente. Innaffiare ogni giorno!',
+      es: '<strong>⚠️ Plagron Coco:</strong> A y B por separado. ¡Regar diariamente!'
+    }
+  },
+  ghe: {
+    name: 'GHE Flora Series',
+    grow: [
+      { product: 'FloraGro',   weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,5,5,5,4,3] },
+      { product: 'FloraMicro', weeks: [1,2,3,4,5,6,7,8], ml: [1,2,2,3,3,3,2,2] },
+      { product: 'FloraBloom', weeks: [1,2,3,4,5,6,7,8], ml: [0.5,1,1,1.5,1.5,1.5,1,0.5] },
+      { product: 'Diamond Nectar', weeks: [1,2,3],       ml: 1.5 },
+    ],
+    bloom: [
+      { product: 'FloraGro',    weeks: [1,2,3,4,5,6,7,8], ml: [1.5,1,0.5,0.5,0.5,0.5,0,0] },
+      { product: 'FloraMicro',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3,3,3,2,0] },
+      { product: 'FloraBloom',  weeks: [1,2,3,4,5,6,7,8], ml: [2,3,4,5,5,5,3,0] },
+      { product: 'Ripen',       weeks: [7,8],              ml: 4 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ GHE Reihenfolge:</strong> FloraMicro immer ZUERST ins Wasser, dann FloraGro, dann FloraBloom!',
+      en: '<strong>⚠️ GHE Order:</strong> Always add FloraMicro FIRST, then FloraGro, then FloraBloom!',
+      it: '<strong>⚠️ GHE Ordine:</strong> FloraMicro SEMPRE prima, poi FloraGro, poi FloraBloom!',
+      es: '<strong>⚠️ GHE Orden:</strong> ¡FloraMicro SIEMPRE primero, luego FloraGro, luego FloraBloom!'
+    }
+  },
+  advanced: {
+    name: 'Advanced Nutrients',
+    grow: [
+      { product: 'Grow (A)',    weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,4,4,4,4,4] },
+      { product: 'Grow (B)',    weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,4,4,4,4,4] },
+      { product: 'Voodoo Juice',weeks: [1,2,3],            ml: 2 },
+      { product: 'B-52',        weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    bloom: [
+      { product: 'Bloom (A)',   weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,4,4,4,4,3,0] },
+      { product: 'Bloom (B)',   weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,4,4,4,4,3,0] },
+      { product: 'Big Bud',     weeks: [3,4,5,6],         ml: [2,2,2,2] },
+      { product: 'Overdrive',   weeks: [5,6,7],           ml: [2,2,1] },
+      { product: 'B-52',        weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ pH Perfect:</strong> Advanced Nutrients pH-Perfect-Linie hält pH automatisch stabil — trotzdem kontrollieren!',
+      en: '<strong>⚠️ pH Perfect:</strong> pH Perfect line auto-stabilizes pH — still check it!',
+      it: '<strong>⚠️ pH Perfect:</strong> Linea pH Perfect stabilizza il pH automaticamente — controlla comunque!',
+      es: '<strong>⚠️ pH Perfect:</strong> La línea pH Perfect estabiliza el pH automáticamente — ¡aún así controla!'
+    }
+  }
+};
+
+// === CHART ===
+let growChart = null;
+
+function initChart() {
+  const ctx = document.getElementById('grow-chart').getContext('2d');
+  growChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        { label: 'pH', data: [], borderColor: '#c4a882', backgroundColor: 'rgba(196,168,130,0.1)', tension: 0.3, yAxisID: 'y' },
+        { label: 'EC', data: [], borderColor: '#6b8c5a', backgroundColor: 'rgba(107,140,90,0.1)', tension: 0.3, yAxisID: 'y2' },
+        { label: 'Temp', data: [], borderColor: '#c47a35', backgroundColor: 'rgba(196,122,53,0.1)', tension: 0.3, yAxisID: 'y2' },
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#a09880', font: { family: 'DM Mono, monospace', size: 11 } } } },
+      scales: {
+        x:  { ticks: { color: '#6b6050', font: { size: 10 } }, grid: { color: '#2e2e2e' } },
+        y:  { position: 'left',  ticks: { color: '#c4a882', font: { size: 10 } }, grid: { color: '#2e2e2e' }, title: { display: true, text: 'pH', color: '#c4a882', font: { size: 10 } } },
+        y2: { position: 'right', ticks: { color: '#6b8c5a', font: { size: 10 } }, grid: { drawOnChartArea: false } },
+      }
+    }
+  });
+}
+
+function updateChart() {
+  if (!growChart) return;
+  const labels = state.logs.slice(-20).map(l => l.date.slice(5));
+  const phData   = state.logs.slice(-20).map(l => l.ph   || null);
+  const ecData   = state.logs.slice(-20).map(l => l.ec   || null);
+  const tempData = state.logs.slice(-20).map(l => l.temp || null);
+  growChart.data.labels = labels;
+  growChart.data.datasets[0].data = phData;
+  growChart.data.datasets[1].data = ecData;
+  growChart.data.datasets[2].data = tempData;
+  growChart.update();
+}
+
+// === SUBSTRATE ===
+function setSubstrate(sub) {
+  state.substrate = sub;
+  document.querySelectorAll('.sub-btn').forEach(b => b.classList.toggle('active', b.dataset.sub === sub));
+  updateRangeHints();
+  updateSubstrateTip();
+  renderNutrients();
+  saveState();
+}
+
+function updateRangeHints() {
+  const t = substrateTargets[state.substrate];
+  const phase = document.getElementById('phase-select').value;
+  const ecMin = phase === 'bloom' ? t.ecBloomMin : t.ecGrowMin;
+  const ecMax = phase === 'bloom' ? t.ecBloomMax : t.ecGrowMax;
+  document.getElementById('ph-range').textContent = `Ziel: ${t.phMin} – ${t.phMax}`;
+  document.getElementById('ec-range').textContent = `Ziel: ${ecMin} – ${ecMax}`;
+}
+
+function updateSubstrateTip() {
+  const t = substrateTargets[state.substrate];
+  const tip = document.getElementById('substrate-tip');
+  tip.textContent = t.feedTip[state.lang] || t.feedTip.de;
+}
+
+// === STATUS ===
+function updateStatus() {
+  const ph   = parseFloat(document.getElementById('ph').value);
+  const ec   = parseFloat(document.getElementById('ec').value);
+  const temp = parseFloat(document.getElementById('temp').value);
+  const t    = substrateTargets[state.substrate];
+  const phase = document.getElementById('phase-select').value;
+  const ecMin = phase === 'bloom' ? t.ecBloomMin : t.ecGrowMin;
+  const ecMax = phase === 'bloom' ? t.ecBloomMax : t.ecGrowMax;
+  const bar = document.getElementById('status-bar');
+  const msgs = [];
+
+  if (!isNaN(ph)) {
+    if (ph < t.phMin - 0.2) msgs.push(`⚠️ pH zu niedrig (${ph}) — pH-Up zugeben`);
+    else if (ph > t.phMax + 0.2) msgs.push(`⚠️ pH zu hoch (${ph}) — pH-Down zugeben`);
+    else msgs.push(`✅ pH ${ph} — OK`);
+  }
+  if (!isNaN(ec)) {
+    if (ec < ecMin - 0.2) msgs.push(`⚠️ EC zu niedrig (${ec}) — Nährstoffe erhöhen`);
+    else if (ec > ecMax + 0.3) msgs.push(`⚠️ EC zu hoch (${ec}) — Wasser nachfüllen/spülen`);
+    else msgs.push(`✅ EC ${ec} — OK`);
+  }
+  if (!isNaN(temp)) {
+    if (temp > 30) msgs.push(`🔥 Temp zu hoch! (${temp}°C)`);
+    else if (temp < t.tempMin) msgs.push(`❄️ Temp zu kalt (${temp}°C)`);
+    else msgs.push(`✅ Temp ${temp}°C — OK`);
+  }
+
+  if (msgs.length === 0) { bar.textContent = 'ℹ️ Werte eingeben für Empfehlung...'; bar.className = 'status-bar'; return; }
+
+  const hasErr  = msgs.some(m => m.startsWith('⚠️') || m.startsWith('🔥') || m.startsWith('❄️'));
+  bar.innerHTML  = msgs.join('  |  ');
+  bar.className  = 'status-bar ' + (hasErr ? 'status-warn' : 'status-ok');
+}
+
+function updateRunoff() {
+  const rPh = parseFloat(document.getElementById('runoff-ph').value);
+  const rEc = parseFloat(document.getElementById('runoff-ec').value);
+  const inEc = parseFloat(document.getElementById('ec').value);
+  const bar = document.getElementById('runoff-bar');
+  const t = substrateTargets[state.substrate];
+  const msgs = [];
+
+  if (!isNaN(rPh)) {
+    if (rPh < t.phMin - 0.3) msgs.push(`⚠️ Runoff pH ${rPh} — Substrat versäuert → pH-Up oder Flush`);
+    else if (rPh > t.phMax + 0.3) msgs.push(`⚠️ Runoff pH ${rPh} — zu basisch → pH-Down oder Flush`);
+    else msgs.push(`✅ Runoff pH ${rPh} — OK`);
+  }
+  if (!isNaN(rEc) && !isNaN(inEc)) {
+    const diff = rEc - inEc;
+    if (diff > 1.5) msgs.push(`⚠️ Runoff EC ${rEc} (Δ+${diff.toFixed(1)}) — Salze akkumulieren → Flush nötig!`);
+    else if (diff < -0.5) msgs.push(`ℹ️ Runoff EC ${rEc} — Pflanze frisst aktiv`);
+    else msgs.push(`✅ Runoff EC ${rEc} — OK`);
+  } else if (!isNaN(rEc)) {
+    msgs.push(`ℹ️ Runoff EC ${rEc}`);
+  }
+
+  if (msgs.length === 0) { bar.textContent = 'ℹ️ Runoff messen nach dem Gießen'; bar.className = 'status-bar'; return; }
+  const hasErr = msgs.some(m => m.startsWith('⚠️'));
+  bar.innerHTML = msgs.join('  |  ');
+  bar.className = 'status-bar ' + (hasErr ? 'status-warn' : 'status-ok');
+}
+
+// === WATERING ===
+function logWatering(withFeed) {
+  state.wateringCount++;
+  state.lastWatered = new Date().toISOString();
+  saveState();
+  updateWateringUI();
+}
+
+function updateWateringUI() {
+  const ld = document.getElementById('last-watered-display');
+  const nd = document.getElementById('next-water-display');
+  const wc = document.getElementById('watering-count');
+  const fn = document.getElementById('feed-next-display');
+
+  wc.textContent = state.wateringCount;
+
+  if (state.lastWatered) {
+    const last = new Date(state.lastWatered);
+    ld.textContent = last.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' }) + ' ' + last.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    const next = new Date(last.getTime() + (state.waterInterval * 24 * 60 * 60 * 1000));
+    const now = new Date();
+    const diff = Math.round((next - now) / (1000 * 60 * 60));
+    if (diff <= 0) nd.textContent = '⚠️ Überfällig!';
+    else if (diff < 24) nd.textContent = `in ${diff}h`;
+    else nd.textContent = `in ${Math.round(diff/24)}d`;
+
+    const feedInterval = parseInt(document.getElementById('feed-interval').value);
+    const nextFeedAt = Math.ceil(state.wateringCount / feedInterval) * feedInterval;
+    fn.textContent = (state.wateringCount % feedInterval === 0) ? '✅ Jetzt!' : `beim ${nextFeedAt}. Guss`;
+  } else {
+    ld.textContent = '–';
+    nd.textContent = '–';
+    fn.textContent = '–';
+  }
+}
+
+// === NUTRIENTS ===
+function getMlForWeek(product, weekNum) {
+  if (!product.weeks.includes(weekNum)) return 0;
+  const idx = product.weeks.indexOf(weekNum);
+  if (Array.isArray(product.ml)) return product.ml[idx] || product.ml[product.ml.length - 1] || 0;
+  return product.ml;
+}
+
+function renderNutrients() {
+  const brand   = document.getElementById('brand-select').value;
+  const phase   = document.getElementById('phase-select').value;
+  const week    = parseInt(document.getElementById('week-select').value);
+  const volume  = parseFloat(document.getElementById('volume').value) || 10;
+  const data    = nutrients[brand];
+  const table   = document.getElementById('nutrient-table');
+  const addOrd  = document.getElementById('add-order');
+
+  updateRangeHints();
+
+  if (!data) { table.innerHTML = ''; return; }
+
+  const products = phase === 'flush' ? [] : (data[phase] || []);
+  let html = `<thead><tr><th>Produkt</th><th>ml / 10L</th><th>ml / ${volume}L</th></tr></thead><tbody>`;
+
+  if (phase === 'flush') {
+    html += `<tr><td colspan="3" style="color:var(--warn);padding:12px 10px;">💦 Flush: Nur klares Wasser, pH ${substrateTargets[state.substrate].phMin}–${substrateTargets[state.substrate].phMax}.<br>EC Ziel: &lt;0.5 mS/cm. 2–3x pro Woche bis Ernte.</td></tr>`;
+  } else {
+    let total = 0;
+    products.forEach(p => {
+      const ml10 = getMlForWeek(p, week);
+      if (ml10 === 0) return;
+      const mlVol = ((ml10 / 10) * volume).toFixed(1);
+      total += parseFloat(mlVol);
+      html += `<tr><td class="product">${p.product}</td><td>${ml10} ml</td><td class="amount">${mlVol} ml</td></tr>`;
+    });
+    if (total > 0) html += `<tr><td style="color:var(--text3);font-size:11px;" colspan="2">Gesamt</td><td class="amount">${total.toFixed(1)} ml</td></tr>`;
+    if (products.length === 0 || products.every(p => getMlForWeek(p, week) === 0)) {
+      html += `<tr><td colspan="3" style="color:var(--text3);padding:12px 10px;">– Keine Produkte für Woche ${week} in dieser Phase</td></tr>`;
+    }
+  }
+
+  html += '</tbody>';
+  table.innerHTML = html;
+
+  if (data.addOrder) {
+    addOrd.innerHTML = data.addOrder[state.lang] || data.addOrder.de;
+  } else {
+    addOrd.innerHTML = '';
+  }
+}
+
+// === GROW LOG ===
+function addLogEntry() {
+  const ph   = document.getElementById('log-ph').value;
+  const ec   = document.getElementById('log-ec').value;
+  const temp = document.getElementById('log-temp').value;
+  const rpH  = document.getElementById('log-rpH').value;
+  const note = document.getElementById('log-note').value.trim();
+  const phase = document.getElementById('phase-select').value;
+  const week  = document.getElementById('week-select').value;
+  const sub   = substrateTargets[state.substrate].label;
+
+  const entry = {
+    id: Date.now(),
+    date: new Date().toISOString().slice(0, 16).replace('T', ' '),
+    ph: ph ? parseFloat(ph) : null,
+    ec: ec ? parseFloat(ec) : null,
+    temp: temp ? parseFloat(temp) : null,
+    rpH: rpH ? parseFloat(rpH) : null,
+    note,
+    phase,
+    week,
+    substrate: sub
+  };
+
+  state.logs.unshift(entry);
+  if (state.logs.length > 200) state.logs = state.logs.slice(0, 200);
+
+  document.getElementById('log-ph').value = '';
+  document.getElementById('log-ec').value = '';
+  document.getElementById('log-temp').value = '';
+  document.getElementById('log-rpH').value = '';
+  document.getElementById('log-note').value = '';
+
+  saveState();
+  renderLog();
+  updateChart();
+}
+
+function renderLog() {
+  const container = document.getElementById('log-entries');
+  if (state.logs.length === 0) {
+    container.innerHTML = '<div style="color:var(--text3);font-size:12px;padding:8px 0;">Noch keine Einträge...</div>';
+    return;
+  }
+  container.innerHTML = state.logs.slice(0, 50).map(e => {
+    const vals = [
+      e.ph   ? `pH ${e.ph}` : null,
+      e.ec   ? `EC ${e.ec}` : null,
+      e.temp ? `${e.temp}°C` : null,
+      e.rpH  ? `Runoff pH ${e.rpH}` : null,
+    ].filter(Boolean).join(' · ');
+    return `<div class="log-entry">
+      <div class="log-meta">${e.date} · ${e.substrate} · ${e.phase === 'grow' ? '🌱' : '🌸'} W${e.week}</div>
+      ${vals ? `<div class="log-values">${vals}</div>` : ''}
+      ${e.note ? `<div class="log-note">${e.note}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// === GEMINI CHAT ===
+function saveApiKey() {
+  state.apiKey = document.getElementById('gemini-key').value.trim();
+  saveState();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg   = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  const apiKey = state.apiKey || document.getElementById('gemini-key').value.trim();
+  addChatMsg('user', msg);
+
+  if (!apiKey) {
+    addChatMsg('ai', '⚠️ Kein API Key gesetzt. Bitte Gemini API Key eingeben (kostenlos auf aistudio.google.com).');
+    return;
+  }
+
+  const t = substrateTargets[state.substrate];
+  const phase = document.getElementById('phase-select').value;
+  const week = document.getElementById('week-select').value;
+  const context = `Du bist ein Experte für Cannabis-Anbau in Substrat (${t.label}). Phase: ${phase}, Woche: ${week}. pH-Ziel: ${t.phMin}–${t.phMax}, EC-Ziel: ${t.ecGrowMin}–${t.ecGrowMax} (Grow). Antworte auf Deutsch, kurz und praktisch.`;
+
+  addChatMsg('ai', '...');
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [
+          { role: 'user', parts: [{ text: context + '\n\nFrage: ' + msg }] }
+        ]
+      })
+    });
+    const data = await res.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Keine Antwort erhalten.';
+    // Letztes "..." ersetzen
+    const chatWindow = document.getElementById('chat-window');
+    const dots = chatWindow.querySelector('.chat-msg.ai:last-child');
+    if (dots && dots.querySelector('.content').textContent === '...') {
+      dots.querySelector('.content').textContent = text;
+    } else {
+      addChatMsg('ai', text);
+    }
+  } catch (err) {
+    const chatWindow = document.getElementById('chat-window');
+    const dots = chatWindow.querySelector('.chat-msg.ai:last-child');
+    if (dots) dots.querySelector('.content').textContent = '❌ Fehler: ' + err.message;
+  }
+}
+
+function addChatMsg(role, content) {
+  const cw = document.getElementById('chat-window');
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.innerHTML = `<div class="role">${role === 'user' ? '👤 Du' : '🤖 Grow-Assistent'}</div><div class="content">${content}</div>`;
+  cw.appendChild(div);
+  cw.scrollTop = cw.scrollHeight;
+}
+
+// === I18N ===
+function applyLang(lang) {
+  state.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const t = i18n[lang]?.[key] || i18n.de[key];
+    if (t) el.textContent = t;
+  });
+  updateSubstrateTip();
+  renderNutrients();
+  saveState();
+}
+
+// === PERSIST ===
+function saveState() {
+  state.waterInterval = parseInt(document.getElementById('water-interval').value);
+  state.feedInterval  = parseInt(document.getElementById('feed-interval').value);
+  try { localStorage.setItem('scge-state', JSON.stringify(state)); } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem('scge-state');
+    if (saved) {
+      const s = JSON.parse(saved);
+      Object.assign(state, s);
+    }
+  } catch(e) {}
+}
+
+// === INIT ===
+function init() {
+  loadState();
+
+  // Substrate buttons
+  setSubstrate(state.substrate);
+
+  // Lang
+  applyLang(state.lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.addEventListener('click', () => applyLang(b.dataset.lang));
+  });
+
+  // Water interval
+  document.getElementById('water-interval').value = state.waterInterval || 2;
+  document.getElementById('feed-interval').value  = state.feedInterval  || 2;
+
+  // API key
+  if (state.apiKey) document.getElementById('gemini-key').value = state.apiKey;
+
+  // Init chart
+  initChart();
+  updateChart();
+
+  // Render
+  renderNutrients();
+  renderLog();
+  updateWateringUI();
+  updateSubstrateTip();
+
+  // Phase change updates range hints
+  document.getElementById('phase-select').addEventListener('change', () => {
+    updateRangeHints();
+    renderNutrients();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
