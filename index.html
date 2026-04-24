@@ -577,25 +577,30 @@
     <div class="phase-week-row">
       <label data-i18n="brand_label">Marke:</label>
       <select id="brand-select" onchange="renderNutrients()">
-        <option value="hesi">🌿 Hesi (Soil)</option>
-        <option value="biobizz">🍃 Biobizz</option>
+        <option value="hesi">🌿 Hesi</option>
+        <option value="canna-aqua">💧 Canna Aqua</option>
         <option value="canna-terra">🌺 Canna Terra</option>
         <option value="canna-coco">🥥 Canna Coco</option>
+        <option value="plagron-hydro">🌊 Plagron Hydro</option>
         <option value="plagron-soil">🌱 Plagron Soil</option>
         <option value="plagron-coco">🌱 Plagron Coco</option>
         <option value="ghe">🧪 GHE Flora Series</option>
+        <option value="terra-aquatica">🧪 Terra Aquatica (ex-GHE)</option>
         <option value="advanced">⚡ Advanced Nutrients</option>
+        <option value="athena">🩵 Athena Nutrients</option>
+        <option value="biobizz">🍃 Biobizz</option>
         <option value="biotabs">🟫 BioTabs (Organic Tablets)</option>
-        <option value="house-garden">🏡 House &amp; Garden</option>
-        <option value="dutch-pro">🔵 Dutch Pro</option>
-        <option value="bac">🌿 BAC Fertilizers</option>
         <option value="aptus">💎 Aptus Plant Tech</option>
+        <option value="mills">⚙️ Mills Nutrients</option>
+        <option value="remo">🍁 Remo Nutrients</option>
+        <option value="cyco">🔵 Cyco Nutrients</option>
+        <option value="house-garden">🏡 House &amp; Garden</option>
+        <option value="atami">🌺 Atami B'Cuzz</option>
+        <option value="dutch-pro">🔵 Dutch Pro</option>
+        <option value="shogun">🟡 Shogun Fertilisers</option>
+        <option value="bac">🌿 BAC Fertilizers</option>
         <option value="metrop">🟠 Metrop</option>
         <option value="top-crop">🇪🇸 Top Crop</option>
-        <option value="atami">🌊 Atami B'Cuzz</option>
-        <option value="shogun">🟡 Shogun Fertilisers</option>
-        <option value="terra-aquatica">🌱 Terra Aquatica</option>
-        <option value="athena">🩵 Athena Nutrients</option>
         <option value="greenhouse">🏠 Green House Feeding</option>
       </select>
       <label data-i18n="phase_label">Phase:</label>
@@ -1273,10 +1278,7 @@ const nutrients = {
       it: '<strong>⚠️ Terra Aquatica:</strong> TriPart Micro SEMPRE PRIMA, poi Grow, poi Bloom — mai mescolare direttamente!',
       es: '<strong>⚠️ Terra Aquatica:</strong> TriPart Micro SIEMPRE PRIMERO, luego Grow, luego Bloom — ¡nunca mezclar directamente!'
     }
-  }
-};
-
-,
+  },
   athena: {
     name: 'Athena Nutrients',
     grow: [
@@ -1322,8 +1324,120 @@ const nutrients = {
       it: '<strong>⚠️ Green House Feeding:</strong> Sciogliere la polvere prima in poca acqua calda. Top Feeding direttamente sul substrato. Trycho+ una sola volta al rinvaso.',
       es: '<strong>⚠️ Green House Feeding:</strong> Disolver el polvo primero en poca agua caliente. Top Feeding directamente al sustrato. Trycho+ solo una vez al trasplantar.'
     }
+  },
+  'canna-aqua': {
+    name: 'Canna Aqua',
+    grow: [
+      { product: 'Aqua Vega A',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,3.5,3.5,3.5,3.5] },
+      { product: 'Aqua Vega B',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,3.5,3.5,3.5,3.5] },
+      { product: 'Rhizotonic',   weeks: [1,2,3],            ml: 4 },
+      { product: 'Cannazym',     weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    bloom: [
+      { product: 'Aqua Flores A', weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Aqua Flores B', weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Boost',         weeks: [2,3,4,5,6,7],     ml: [1.5,2,2.5,2.5,2.5,1.5] },
+      { product: 'PK 13/14',      weeks: [4,5,6],           ml: 1.5 },
+      { product: 'Cannazym',      weeks: [1,2,3,4,5,6,7,8], ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Canna Aqua:</strong> A und B IMMER getrennt zugeben — nie direkt mischen! Hydro-Linie (DWC/NFT/Recirculation). pH und EC täglich prüfen. Rhizotonic in Woche 1–3 für starke Wurzeln.',
+      en: '<strong>⚠️ Canna Aqua:</strong> Always add A and B separately — never mix directly! Hydro line (DWC/NFT/recirculation). Check pH and EC daily. Rhizotonic weeks 1–3 for strong roots.',
+      it: '<strong>⚠️ Canna Aqua:</strong> A e B sempre separatamente. Linea idroponica. Controllare pH ed EC ogni giorno.',
+      es: '<strong>⚠️ Canna Aqua:</strong> A y B siempre por separado. Línea hidropónica. Comprobar pH y EC diariamente.'
+    }
+  },
+  'plagron-hydro': {
+    name: 'Plagron Hydro',
+    grow: [
+      { product: 'Hydro A',         weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,3.5,3.5,3.5,3.5] },
+      { product: 'Hydro B',         weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,3.5,3.5,3.5,3.5] },
+      { product: 'Power Roots',     weeks: [1,2,3],            ml: 2 },
+      { product: 'Green Sensation', weeks: [6,7,8],            ml: 1 },
+    ],
+    bloom: [
+      { product: 'Hydro A',         weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Hydro B',         weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,3.5,3.5,3.5,2.5,0] },
+      { product: 'Green Sensation', weeks: [3,4,5,6,7],        ml: [0.5,1,1,1,0.5] },
+      { product: 'Sugar Royal',     weeks: [4,5,6,7],          ml: 2.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Plagron Hydro:</strong> A und B IMMER getrennt zugeben. Green Sensation enthält Bloom-, PK- und Aroma-Booster in einem — EC-Anstieg beachten! Sugar Royal für mehr Zucker und Aroma.',
+      en: '<strong>⚠️ Plagron Hydro:</strong> Always add A and B separately. Green Sensation combines bloom, PK and aroma boost — watch EC increase! Sugar Royal for more sugars and flavour.',
+      it: '<strong>⚠️ Plagron Hydro:</strong> A e B sempre separatamente. Green Sensation combina bloom, PK e aroma in uno.',
+      es: '<strong>⚠️ Plagron Hydro:</strong> A y B siempre por separado. Green Sensation combina bloom, PK y aroma en uno.'
+    }
+  },
+  mills: {
+    name: 'Mills Nutrients',
+    grow: [
+      { product: 'Basis A',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,4,4,4,4] },
+      { product: 'Basis B',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,4,4,4,4] },
+      { product: 'Start-R',  weeks: [1,2,3],            ml: 2 },
+      { product: 'Vitalize', weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    bloom: [
+      { product: 'Basis A',     weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,4,4,4,3,0] },
+      { product: 'Basis B',     weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,4,4,4,3,0] },
+      { product: 'C4',          weeks: [1,2,3,4,5,6],     ml: [1,1.5,2,3,3,2] },
+      { product: 'Ultimate PK', weeks: [4,5],              ml: 1 },
+      { product: 'Vitalize',    weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Mills:</strong> Basis A und B immer getrennt zugeben. C4 ist der Bloom-Booster — EC-Anstieg beachten! Ultimate PK nur kurz in Wochen 4–5. Vitalize (Silizium) ganzen Run verwenden.',
+      en: '<strong>⚠️ Mills:</strong> Always add Basis A and B separately. C4 is the bloom booster — watch EC increase! Ultimate PK only briefly in weeks 4–5. Vitalize (silicon) use entire run.',
+      it: '<strong>⚠️ Mills:</strong> Basis A e B sempre separatamente. C4 è il bloom booster. Vitalize (silicio) per tutto il run.',
+      es: '<strong>⚠️ Mills:</strong> Basis A y B siempre por separado. C4 es el bloom booster. Vitalize (silicio) durante todo el run.'
+    }
+  },
+  remo: {
+    name: 'Remo Nutrients',
+    grow: [
+      { product: 'Remo Grow',  weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,4,4,4,4,4] },
+      { product: 'Remo Micro', weeks: [1,2,3,4,5,6,7,8], ml: [1,1.5,2,2,2,2,2,2] },
+      { product: 'Magnifical', weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'VeloKelp',   weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    bloom: [
+      { product: 'Remo Bloom',     weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,4,4,4,4,3,0] },
+      { product: 'Remo Micro',     weeks: [1,2,3,4,5,6,7,8], ml: [1.5,2,2.5,2.5,2.5,2.5,2,0] },
+      { product: "Nature's Candy", weeks: [1,2,3,4,5,6,7],   ml: [1,1.5,2,2,2,2,1] },
+      { product: 'Magnifical',     weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'Astro Flav',     weeks: [4,5,6],            ml: [1,2,2] },
+      { product: 'VeloKelp',       weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    addOrder: {
+      de: "<strong>⚠️ Remo:</strong> Micro IMMER ZUERST ins Wasser, dann Grow/Bloom. Magnifical (CalMag) bei Coco/RO immer zugeben. Nature's Candy verbessert Aromen. Astro Flav in der Spätblüte für Terpen-Boost.",
+      en: "<strong>⚠️ Remo:</strong> Micro ALWAYS FIRST in water, then Grow/Bloom. Magnifical (CalMag) always add with coco/RO water. Nature's Candy improves flavour. Astro Flav in late bloom for terpene boost.",
+      it: "<strong>⚠️ Remo:</strong> Micro SEMPRE PRIMA, poi Grow/Bloom. Magnifical (CalMag) sempre con coco. Nature's Candy migliora aromi.",
+      es: "<strong>⚠️ Remo:</strong> Micro SIEMPRE PRIMERO, luego Grow/Bloom. Magnifical (CalMag) siempre con coco. Nature's Candy mejora aromas."
+    }
+  },
+  cyco: {
+    name: 'Cyco Nutrients',
+    grow: [
+      { product: 'Grow A',     weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,3.5,3.5,3.5,3.5] },
+      { product: 'Grow B',     weeks: [1,2,3,4,5,6,7,8], ml: [2,2.5,3,3.5,3.5,3.5,3.5,3.5] },
+      { product: 'Silica',     weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Zyme',       weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+      { product: 'Dr. Repair', weeks: [1,2,3],            ml: 1 },
+    ],
+    bloom: [
+      { product: 'Bloom A',     weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,4,4,4,3,0] },
+      { product: 'Bloom B',     weeks: [1,2,3,4,5,6,7,8], ml: [2.5,3,3.5,4,4,4,3,0] },
+      { product: 'XL',          weeks: [1,2,3,4,5,6,7],   ml: [1,1.5,2,2.5,2.5,2,1] },
+      { product: 'Potash Plus', weeks: [4,5,6],            ml: 1 },
+      { product: 'Suga Rush',   weeks: [3,4,5,6,7],        ml: [1,2,2,2,1] },
+      { product: 'Silica',      weeks: [1,2,3,4,5,6,7,8], ml: 0.5 },
+      { product: 'Zyme',        weeks: [1,2,3,4,5,6,7,8], ml: 1 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Cyco:</strong> Silica IMMER ZUERST ins Wasser (min. 15 Min warten), dann A+B getrennt. Zyme (Enzyme) ganzen Run. XL ist der Bloom-Stimulator. Potash Plus (PK) nur kurz in Wochen 4–6.',
+      en: '<strong>⚠️ Cyco:</strong> Silica ALWAYS FIRST in water (wait min. 15 min), then A+B separately. Zyme (enzymes) entire run. XL is the bloom stimulator. Potash Plus (PK) only briefly in weeks 4–6.',
+      it: '<strong>⚠️ Cyco:</strong> Silica SEMPRE PRIMA (aspettare 15 min), poi A+B separatamente. Zyme per tutto il run. XL è il bloom stimolatore.',
+      es: '<strong>⚠️ Cyco:</strong> Silica SIEMPRE PRIMERO (esperar 15 min), luego A+B por separado. Zyme durante todo el run. XL es el bloom estimulador.'
+    }
   }
-
 };
 
 // === CHART ===

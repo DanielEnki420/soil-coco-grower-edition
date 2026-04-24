@@ -1,67 +1,75 @@
-# 🌱 Soil & Coco Grower Edition v1.0
+# 🌱 Soil & Coco Grower Edition
 
-**Ein kostenloses, offline-fähiges Dashboard für Substrat-Grower (Erde & Coco)**
+**A free, offline-capable grow dashboard for soil and coco growers.**  
+Track pH, EC and temperature, calculate nutrients for 25 brands, and keep a grow diary — all in a single HTML file, no installation needed.
 
-👉 **Live:** https://danielenki420.github.io/soil-coco-grower-edition/
+👉 **Live Demo:** https://danielenki420.github.io/soil-coco-grower-edition/
 
 ---
 
 ## Features
 
-- 🥥🌍 **Substrat-Auswahl**: Coco / Erde / Coco+Erde Mix — passt alle Zielwerte automatisch an
-- 🌡️ **pH, EC, Temperatur** Monitoring mit substrat-spezifischen Zielwerten
-- 🔁 **Runoff-Tracking** — Abfluss pH/EC messen und auswerten (Salz-Akkumulation erkennen)
-- 💧 **Gieß-Erinnerung** — mit Nährstoff-Rhythmus (jedes 2./3. Mal oder täglich für Coco)
-- 🧪 **Nährstoff-Rechner** für 8 Marken:
-  - 🌿 Hesi Soil · 🍃 Biobizz · 🌺 Canna Terra · 🥥 Canna Coco
-  - 🌱 Plagron Soil · 🌱 Plagron Coco · 🧪 GHE Flora · ⚡ Advanced Nutrients
-- 📈 **Verlaufs-Chart** (Chart.js) für pH, EC, Temperatur
-- 📝 **Grow Diary** — Einträge mit lokalem Speicher (localStorage)
-- 🤖 **KI-Assistent** via Gemini API (kostenloser Key auf aistudio.google.com)
-- 🌍 **Mehrsprachig**: Deutsch, English, Italiano, Español
-- 💾 **100% offline** — kein Server, kein Login, keine Cloud
+- 🥥🌍 **Substrate selector** — Coco / Soil / Coco+Soil Mix, auto-adjusts all target values
+- 🌡️ **pH, EC & Temperature monitoring** with substrate-specific target ranges
+- 🔁 **Runoff tracking** — measure drain pH/EC to detect salt accumulation
+- 💧 **Watering reminder** — configurable nutrient interval (every 1st, 2nd or 3rd watering)
+- 🧪 **Nutrient calculator** for **25 brands** with week-by-week dosing schedules:
+  - 🌿 Hesi · 💧 Canna Aqua · 🌺 Canna Terra · 🥥 Canna Coco
+  - 🌊 Plagron Hydro · 🌱 Plagron Soil · 🌱 Plagron Coco
+  - 🧪 GHE Flora Series · 🧪 Terra Aquatica (ex-GHE)
+  - ⚡ Advanced Nutrients · 🩵 Athena Nutrients
+  - 🍃 Biobizz · 🟫 BioTabs · 💎 Aptus Plant Tech
+  - ⚙️ Mills Nutrients · 🍁 Remo Nutrients · 🔵 Cyco Nutrients
+  - 🏡 House & Garden · 🌺 Atami B'Cuzz · 🔵 Dutch Pro
+  - 🟡 Shogun Fertilisers · 🌿 BAC Fertilizers · 🟠 Metrop
+  - 🇪🇸 Top Crop · 🏠 Green House Feeding
+- 📈 **History charts** (Chart.js) for pH, EC and temperature
+- 📝 **Grow diary** with persistent local storage
+- 🤖 **AI assistant** via Gemini API (free key at aistudio.google.com)
+- 🌍 **4 languages**: Deutsch · English · Italiano · Español
+- 💾 **100% offline** — no server, no login, no cloud
 
 ---
 
-## pH-Zielwerte nach Substrat
+## pH & EC Target Values by Substrate
 
-| Substrat | pH-Ziel | EC Grow | EC Bloom |
-|----------|---------|---------|----------|
-| 🌍 Erde | 6.0 – 7.0 | 1.0 – 1.6 | 1.2 – 1.8 |
-| 🥥 Coco | 5.8 – 6.3 | 1.2 – 2.0 | 1.4 – 2.2 |
-| 🌍🥥 Mix | 6.0 – 6.5 | 1.0 – 1.8 | 1.2 – 2.0 |
-
----
-
-## Runoff — warum wichtig?
-
-Bei Erde und Coco akkumulieren sich Salze im Substrat. Regelmäßiges Messen des Abfluss-EC zeigt:
-- **Runoff EC >> Input EC**: Flush nötig!
-- **Runoff pH zu niedrig**: Substrat versäuert
-- **Runoff pH zu hoch**: Zu basisch, Nährstoffaufnahme blockiert
+| Substrate | pH Target | EC Grow | EC Bloom |
+|-----------|-----------|---------|----------|
+| 🌍 Soil   | 6.0 – 7.0 | 1.0 – 1.6 mS/cm | 1.2 – 1.8 mS/cm |
+| 🥥 Coco   | 5.8 – 6.3 | 1.2 – 2.0 mS/cm | 1.4 – 2.2 mS/cm |
+| 🌍🥥 Mix  | 6.0 – 6.5 | 1.0 – 1.8 mS/cm | 1.2 – 2.0 mS/cm |
 
 ---
 
-## Installation / Nutzung
+## Runoff Monitoring — Why It Matters
 
-Einfach `index.html` im Browser öffnen — fertig. Keine Dependencies, kein Build-Schritt.
+Salt accumulates in soil and coco over time. Measuring runoff pH/EC reveals:
+- **Runoff EC >> Input EC** → flush needed
+- **Runoff pH too low** → substrate acidifying
+- **Runoff pH too high** → nutrient lockout risk
+
+---
+
+## Usage
+
+Just open `index.html` in any browser — no dependencies, no build step.
 
 ```bash
 git clone https://github.com/DanielEnki420/soil-coco-grower-edition
 cd soil-coco-grower-edition
-# index.html im Browser öffnen
+# open index.html in your browser
 ```
 
 ---
 
-## Verwandt
+## Related Projects
 
-- 🔵 **DWC Grower Edition** (Hydroponik): https://danielenki420.github.io/dwc-grower-edition/
+- 🔵 **DWC Grower Edition** (hydroponics): https://danielenki420.github.io/dwc-grower-edition/
 
 ---
 
-## Lizenz
+## License
 
-MIT — Freie Software. Fork it, share it, grow it. 🌱
+MIT — Free software. Fork it, share it, grow it. 🌱
 
-Made with ☕ by DanielEnki420
+Made with ☕ by [DanielEnki420](https://github.com/DanielEnki420)
