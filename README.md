@@ -3,6 +3,9 @@
 **A free, offline-capable grow dashboard for soil and coco growers.**  
 Track pH, EC and temperature, calculate nutrients for 25 brands, and keep a grow diary — all in a single HTML file, no installation needed.
 
+**Kostenloses, offline-fähiges Grow-Dashboard für Erde- und Coco-Grower.**  
+pH, EC und Temperatur tracken, Nährstoffe für 25 Marken berechnen und ein Grow-Tagebuch führen — alles in einer einzigen HTML-Datei, keine Installation nötig.
+
 👉 **Live Demo:** https://danielenki420.github.io/soil-coco-grower-edition/
 
 ---
