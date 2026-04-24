@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a1a0a"/>
+      <stop offset="50%" stop-color="#0f2414"/>
+      <stop offset="100%" stop-color="#0a1a0a"/>
+    </linearGradient>
+    <linearGradient id="gradSoil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+    <linearGradient id="gradDWC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0c4a6e"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative leaves pattern (subtle) -->
+  <g opacity="0.06" fill="#4ade80">
+    <circle cx="100" cy="100" r="80"/>
+    <circle cx="1100" cy="530" r="90"/>
+    <circle cx="150" cy="500" r="60"/>
+    <circle cx="1050" cy="120" r="70"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="900" fill="#f0fdf4" filter="url(#glow)">
+    🌱 GROWER EDITION TOOLS
+  </text>
+  <text x="600" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#a7f3d0" letter-spacing="4">
+    KOSTENLOS · OFFLINE · OPEN SOURCE
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#86efac" font-style="italic">
+    Zwei Schwester-Tools. Ein Ziel: dein perfekter Grow.
+  </text>
+
+  <!-- LEFT CARD: Soil & Coco -->
+  <g transform="translate(60, 190)">
+    <rect width="510" height="380" rx="20" fill="#0a1a0a" stroke="url(#gradSoil)" stroke-width="3"/>
+    <text x="30" y="55" font-family="Arial, sans-serif" font-size="32" font-weight="900" fill="#4ade80">🌍 SOIL &amp; COCO</text>
+    <text x="30" y="85" font-family="Arial, sans-serif" font-size="18" fill="#a7f3d0">Grower Edition</text>
+
+    <line x1="30" y1="110" x2="480" y2="110" stroke="#166534" stroke-width="1"/>
+
+    <text x="30" y="145" font-family="Arial, sans-serif" font-size="15" fill="#d1fae5">Für Erde &amp; Coco-Grower</text>
+    <text x="30" y="180" font-family="Arial, sans-serif" font-size="14" fill="#86efac">✓ 25 Dünger-Marken im Kalkulator</text>
+    <text x="30" y="205" font-family="Arial, sans-serif" font-size="14" fill="#86efac">✓ pH · EC · Temperatur-Tracking</text>
+    <text x="30" y="230" font-family="Arial, sans-serif" font-size="14" fill="#86efac">✓ Runoff-Monitoring (Salz-Check)</text>
+    <text x="30" y="255" font-family="Arial, sans-serif" font-size="14" fill="#86efac">✓ Gieß- &amp; Nährstoff-Erinnerung</text>
+    <text x="30" y="280" font-family="Arial, sans-serif" font-size="14" fill="#86efac">✓ Grow-Tagebuch mit Chart</text>
+    <text x="30" y="305" font-family="Arial, sans-serif" font-size="14" fill="#86efac">✓ Gemini KI-Assistent</text>
+
+    <rect x="30" y="325" width="450" height="40" rx="8" fill="#166534"/>
+    <text x="255" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f0fdf4">danielenki420.github.io/soil-coco-grower-edition</text>
+  </g>
+
+  <!-- RIGHT CARD: DWC -->
+  <g transform="translate(630, 190)">
+    <rect width="510" height="380" rx="20" fill="#0a1a1f" stroke="url(#gradDWC)" stroke-width="3"/>
+    <text x="30" y="55" font-family="Arial, sans-serif" font-size="32" font-weight="900" fill="#38bdf8">💧 DWC</text>
+    <text x="30" y="85" font-family="Arial, sans-serif" font-size="18" fill="#bae6fd">Grower Edition</text>
+
+    <line x1="30" y1="110" x2="480" y2="110" stroke="#0c4a6e" stroke-width="1"/>
+
+    <text x="30" y="145" font-family="Arial, sans-serif" font-size="15" fill="#e0f2fe">Für Hydroponik / DWC-Grower</text>
+    <text x="30" y="180" font-family="Arial, sans-serif" font-size="14" fill="#7dd3fc">✓ 13 Hydro-Marken in der Bibliothek</text>
+    <text x="30" y="205" font-family="Arial, sans-serif" font-size="14" fill="#7dd3fc">✓ pH · EC · Temp · ORP-Alerts</text>
+    <text x="30" y="230" font-family="Arial, sans-serif" font-size="14" fill="#7dd3fc">✓ EC-Nachfüll-Rechner</text>
+    <text x="30" y="255" font-family="Arial, sans-serif" font-size="14" fill="#7dd3fc">✓ Wasserwechsel-Erinnerung</text>
+    <text x="30" y="280" font-family="Arial, sans-serif" font-size="14" fill="#7dd3fc">✓ Ernte-Countdown</text>
+    <text x="30" y="305" font-family="Arial, sans-serif" font-size="14" fill="#7dd3fc">✓ 6 Sprachen + Gemini KI</text>
+
+    <rect x="30" y="325" width="450" height="40" rx="8" fill="#0c4a6e"/>
+    <text x="255" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f0f9ff">danielenki420.github.io/dwc-grower-edition</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="600" y="605" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#64748b">
+    Single HTML · Vanilla JS · MIT License · Made with ☕ by DanielEnki420
+  </text>
+</svg>
