@@ -33,7 +33,7 @@
       </feMerge>
     </filter>
     <!-- Arc path for curved "CANNA COMMUNITY" text -->
-    <path id="topArc" d="M 522,108 A 78,78 0 0 0 678,108"/>
+    <path id="topArc" d="M 510,122 A 92,92 0 0 0 690,122"/>
   </defs>
 
   <!-- Background -->
@@ -48,64 +48,60 @@
   </g>
 
   <!-- ══════════════════════════════════════════════════
-       CANNA COMMUNITY GERMANY LOGO (centered at 600,108)
+       CANNA COMMUNITY GERMANY LOGO (centered at 600,122)
        ══════════════════════════════════════════════════ -->
-  <g transform="translate(600,108)" filter="url(#goldGlow)">
+  <g transform="translate(600,122)" filter="url(#goldGlow)">
 
-    <!-- Shield outer fill -->
-    <path d="M0,-92 C50,-92 82,-70 82,-38 L82,24 C82,66 48,92 0,104 C-48,92 -82,66 -82,24 L-82,-38 C-82,-70 -50,-92 0,-92 Z"
-          fill="#0d1500" stroke="url(#gradGold)" stroke-width="4.5"/>
+    <!-- Shield outer (bigger: ±100 wide, -108 to +120 tall) -->
+    <path d="M0,-108 C56,-108 100,-84 100,-48 L100,28 C100,78 58,108 0,122 C-58,108 -100,78 -100,28 L-100,-48 C-100,-84 -56,-108 0,-108 Z"
+          fill="#0d1500" stroke="url(#gradGold)" stroke-width="5"/>
 
     <!-- Shield inner decorative border -->
-    <path d="M0,-80 C43,-80 70,-60 70,-32 L70,20 C70,57 40,80 0,91 C-40,80 -70,57 -70,20 L-70,-32 C-70,-60 -43,-80 0,-80 Z"
-          fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.45"/>
+    <path d="M0,-95 C48,-95 87,-73 87,-42 L87,24 C87,68 52,95 0,108 C-52,95 -87,68 -87,24 L-87,-42 C-87,-73 -48,-95 0,-95 Z"
+          fill="none" stroke="#fbbf24" stroke-width="1.5" opacity="0.4"/>
 
-    <!-- Cannabis leaf — 7 elliptic fingers from center -->
-    <g fill="#f59e0b" opacity="0.95">
-      <!-- Center finger (straight up) -->
-      <g transform="rotate(0)">  <ellipse cx="0" cy="-20" rx="4.5" ry="21"/></g>
-      <!-- ±27° -->
-      <g transform="rotate(27)"> <ellipse cx="0" cy="-18" rx="4"   ry="18"/></g>
-      <g transform="rotate(-27)"><ellipse cx="0" cy="-18" rx="4"   ry="18"/></g>
-      <!-- ±52° -->
-      <g transform="rotate(52)"> <ellipse cx="0" cy="-14" rx="3.5" ry="15"/></g>
-      <g transform="rotate(-52)"><ellipse cx="0" cy="-14" rx="3.5" ry="15"/></g>
-      <!-- ±76° -->
-      <g transform="rotate(76)"> <ellipse cx="0" cy="-10" rx="2.8" ry="11"/></g>
-      <g transform="rotate(-76)"><ellipse cx="0" cy="-10" rx="2.8" ry="11"/></g>
+    <!-- Cannabis leaf — 7 fingers, each starting exactly from (0,0) -->
+    <!-- cy = -ry ensures bottom of ellipse sits at y=0 (shared center) -->
+    <g fill="#f59e0b">
+      <g transform="rotate(0)">   <ellipse cx="0" cy="-28" rx="6"   ry="28"/></g>
+      <g transform="rotate(28)">  <ellipse cx="0" cy="-24" rx="5.5" ry="24"/></g>
+      <g transform="rotate(-28)"> <ellipse cx="0" cy="-24" rx="5.5" ry="24"/></g>
+      <g transform="rotate(54)">  <ellipse cx="0" cy="-19" rx="5"   ry="19"/></g>
+      <g transform="rotate(-54)"> <ellipse cx="0" cy="-19" rx="5"   ry="19"/></g>
+      <g transform="rotate(78)">  <ellipse cx="0" cy="-13" rx="4"   ry="13"/></g>
+      <g transform="rotate(-78)"> <ellipse cx="0" cy="-13" rx="4"   ry="13"/></g>
       <!-- Stem -->
-      <rect x="-2" y="0" width="4" height="20" rx="2"/>
+      <rect x="-3" y="0" width="6" height="26" rx="3"/>
     </g>
 
-    <!-- Stars -->
-    <text x="-42" y="-32" text-anchor="middle" font-size="11" fill="#fde68a">✦</text>
-    <text x="42"  y="-32" text-anchor="middle" font-size="11" fill="#fde68a">✦</text>
-    <text x="-55" y="4"  text-anchor="middle" font-size="8"  fill="#fbbf24">✦</text>
-    <text x="55"  y="4"  text-anchor="middle" font-size="8"  fill="#fbbf24">✦</text>
-    <text x="0"   y="28" text-anchor="middle" font-size="8"  fill="#fbbf24">✦</text>
+    <!-- Stars (pairs left/right of leaf) -->
+    <text x="-58" y="-38" text-anchor="middle" font-size="14" fill="#fde68a">✦</text>
+    <text x="58"  y="-38" text-anchor="middle" font-size="14" fill="#fde68a">✦</text>
+    <text x="-72" y="5"  text-anchor="middle" font-size="10" fill="#fbbf24">✦</text>
+    <text x="72"  y="5"  text-anchor="middle" font-size="10" fill="#fbbf24">✦</text>
 
     <!-- Divider line above GERMANY -->
-    <line x1="-44" y1="36" x2="44" y2="36" stroke="#fbbf24" stroke-width="1" opacity="0.7"/>
+    <line x1="-55" y1="44" x2="55" y2="44" stroke="#fbbf24" stroke-width="1.2" opacity="0.7"/>
 
     <!-- GERMANY -->
-    <text x="0" y="52" text-anchor="middle"
+    <text x="0" y="64" text-anchor="middle"
           font-family="Arial Black, Arial, sans-serif"
-          font-size="17" font-weight="900"
-          fill="url(#gradGold)" letter-spacing="3">GERMANY</text>
+          font-size="22" font-weight="900"
+          fill="url(#gradGold)" letter-spacing="4">GERMANY</text>
 
     <!-- Divider line below GERMANY -->
-    <line x1="-44" y1="58" x2="44" y2="58" stroke="#fbbf24" stroke-width="1" opacity="0.7"/>
+    <line x1="-55" y1="72" x2="55" y2="72" stroke="#fbbf24" stroke-width="1.2" opacity="0.7"/>
 
     <!-- EST.2025 -->
-    <text x="0" y="74" text-anchor="middle"
-          font-family="Arial, sans-serif" font-size="10" font-weight="bold"
-          fill="#d97706" letter-spacing="2">EST.2025</text>
+    <text x="0" y="90" text-anchor="middle"
+          font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+          fill="#d97706" letter-spacing="3">EST.2025</text>
 
   </g>
 
   <!-- Curved "CANNA COMMUNITY" text along top arc of shield -->
-  <text font-family="Arial Black, Arial, sans-serif" font-size="10.5" font-weight="900"
-        fill="#fde68a" letter-spacing="2.5">
+  <text font-family="Arial Black, Arial, sans-serif" font-size="13" font-weight="900"
+        fill="#fde68a" letter-spacing="3">
     <textPath href="#topArc" startOffset="50%" text-anchor="middle">CANNA COMMUNITY</textPath>
   </text>
 
