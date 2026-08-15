@@ -96,7 +96,7 @@ Beide funktionieren auch **offline**, sobald einmal geladen — einfach als Lese
 
 - **Keine Server.** Alles läuft in deinem Browser.
 - **Keine Cookies.** Daten in `localStorage` auf deinem Gerät.
-- **Kein Tracking.** Kein Google Analytics, kein Facebook Pixel, nichts.
+- **Kein Tracking von Haus aus.** Kein Google Analytics, kein Facebook Pixel — optional kannst du in der App eine anonyme Nutzungsstatistik aktivieren (eigener Server, standardmäßig aus, siehe Datenschutzhinweis in der App).
 - **Kein Account.** Öffnen und loslegen.
 - **Gemini KI optional** — nur wenn du deinen eigenen kostenlosen API-Key bei [aistudio.google.com](https://aistudio.google.com) holst.
 
@@ -211,7 +211,7 @@ Both work **offline** once loaded — just save as a bookmark or add to your hom
 
 - **No servers.** Everything runs in your browser.
 - **No cookies.** Data stored in `localStorage` on your device.
-- **No tracking.** No Google Analytics, no Facebook Pixel, nothing.
+- **No tracking by default.** No Google Analytics, no Facebook Pixel — you can optionally enable anonymous usage stats in the app (own server, off by default, see privacy note in the app).
 - **No account.** Open and go.
 - **Gemini AI optional** — only if you get your own free API key at [aistudio.google.com](https://aistudio.google.com).
 

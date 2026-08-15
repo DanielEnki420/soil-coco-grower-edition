@@ -694,9 +694,15 @@
 </main>
 
 <footer>
-  Soil &amp; Coco Grower Edition — Freie Software 🌱 Kein Login, keine Cloud, alles lokal. &nbsp;|&nbsp;
+  Soil &amp; Coco Grower Edition — Freie Software 🌱 Deine Grow-Daten verlassen nie dein Gerät. Kein Login, keine Cloud. &nbsp;|&nbsp;
   <a href="https://github.com/DanielEnki420/soil-coco-grower-edition" target="_blank">GitHub</a> &nbsp;|&nbsp;
   DWC Edition: <a href="https://danielenki420.github.io/dwc-grower-edition/" target="_blank">dwc-grower-edition</a>
+  <div style="margin-top:10px;font-size:0.9em;">
+    <label style="cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+      <input type="checkbox" id="analytics-toggle" onchange="toggleAnalytics(this.checked)" style="width:auto;margin:0;">
+      <span data-i18n="analytics_toggle">📊 Anonyme Nutzungsstatistik helfen (optional, standardmäßig aus)</span>
+    </label>
+  </div>
 </footer>
 
 <script>
@@ -746,6 +752,7 @@ const i18n = {
     log_note: 'Notiz',
     btn_save: '➕ Eintrag speichern',
     ai_title: 'Grow-Assistent (Gemini)',
+    analytics_toggle: '📊 Anonyme Nutzungsstatistik helfen (optional, standardmäßig aus)',
     btn_save_key: '💾 Speichern',
     ai_welcome: 'Hallo! Ich helfe dir mit deinem Soil/Coco Grow. Frag mich alles — Nährstoffe, pH-Probleme, Diagnose, Tipps.',
   },
@@ -775,6 +782,7 @@ const i18n = {
     log_note: 'Note',
     btn_save: '➕ Save Entry',
     ai_title: 'Grow Assistant (Gemini)',
+    analytics_toggle: '📊 Help with anonymous usage stats (optional, off by default)',
     btn_save_key: '💾 Save',
     ai_welcome: 'Hello! I can help with your Soil/Coco grow. Ask anything — nutrients, pH issues, diagnosis, tips.',
   },
@@ -804,6 +812,7 @@ const i18n = {
     log_note: 'Nota',
     btn_save: '➕ Salva voce',
     ai_title: 'Assistente (Gemini)',
+    analytics_toggle: '📊 Aiuta con statistiche anonime (opzionale, disattivato di default)',
     btn_save_key: '💾 Salva',
     ai_welcome: 'Ciao! Ti aiuto con la tua coltivazione. Chiedimi tutto.',
   },
@@ -833,10 +842,46 @@ const i18n = {
     log_note: 'Nota',
     btn_save: '➕ Guardar entrada',
     ai_title: 'Asistente (Gemini)',
+    analytics_toggle: '📊 Ayuda con estadísticas anónimas (opcional, desactivado por defecto)',
     btn_save_key: '💾 Guardar',
     ai_welcome: 'Hola! Te ayudo con tu cultivo. Pregúntame lo que quieras.',
   }
 };
+
+// ============================================================
+// ANALYTICS — privacy-first, opt-in, default AUS.
+// Es werden NIE Sensorwerte, Notizen oder KI-Chats uebertragen,
+// nur die Tatsache, dass eine Funktion benutzt wurde.
+// ============================================================
+const ANALYTICS_KEY = 'scge_analytics_consent';
+const UMAMI_WEBSITE_ID = '929900c2-646f-495e-a161-1cfa8e05b901';
+
+function analyticsEnabled() {
+  return localStorage.getItem(ANALYTICS_KEY) === '1';
+}
+
+function loadAnalytics() {
+  if (window.umami || document.getElementById('umami-script')) return;
+  const s = document.createElement('script');
+  s.id = 'umami-script';
+  s.defer = true;
+  s.src = 'https://analytics.oli-vera.eu/script.js';
+  s.setAttribute('data-website-id', UMAMI_WEBSITE_ID);
+  s.setAttribute('data-auto-track', 'false');
+  s.setAttribute('data-do-not-track', 'true');
+  s.onload = () => track('app_open');
+  document.head.appendChild(s);
+}
+
+function track(eventName) {
+  if (!analyticsEnabled()) return;
+  if (window.umami && window.umami.track) window.umami.track(eventName);
+}
+
+function toggleAnalytics(enabled) {
+  localStorage.setItem(ANALYTICS_KEY, enabled ? '1' : '0');
+  if (enabled) loadAnalytics();
+}
 
 // === SUBSTRATE TARGETS ===
 const substrateTargets = {
@@ -1573,6 +1618,7 @@ function updateRunoff() {
 
 // === WATERING ===
 function logWatering(withFeed) {
+  track('watering_logged');
   state.wateringCount++;
   state.lastWatered = new Date().toISOString();
   saveState();
@@ -1662,6 +1708,7 @@ function renderNutrients() {
 
 // === GROW LOG ===
 function addLogEntry() {
+  track('diary_entry');
   const ph   = document.getElementById('log-ph').value;
   const ec   = document.getElementById('log-ec').value;
   const temp = document.getElementById('log-temp').value;
@@ -1729,6 +1776,7 @@ async function sendChat() {
   const input = document.getElementById('chat-input');
   const msg   = input.value.trim();
   if (!msg) return;
+  track('ai_assistant_used');
   input.value = '';
 
   const apiKey = state.apiKey || document.getElementById('gemini-key').value.trim();
@@ -1822,8 +1870,13 @@ function init() {
   // Lang
   applyLang(state.lang);
   document.querySelectorAll('.lang-btn').forEach(b => {
-    b.addEventListener('click', () => applyLang(b.dataset.lang));
+    b.addEventListener('click', () => { applyLang(b.dataset.lang); track('language_selected'); });
   });
+
+  // Analytics: Consent-Status wiederherstellen, ggf. Skript laden. Standard: AUS.
+  const analyticsToggle = document.getElementById('analytics-toggle');
+  if (analyticsToggle) analyticsToggle.checked = analyticsEnabled();
+  if (analyticsEnabled()) loadAnalytics();
 
   // Water interval
   document.getElementById('water-interval').value = state.waterInterval || 2;
@@ -1857,9 +1910,9 @@ document.addEventListener('DOMContentLoaded', init);
   font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;opacity:.72">
 <summary style="cursor:pointer;letter-spacing:.05em">Datenschutz / Privacy</summary>
 <div style="margin-top:1rem">
-<p><b>Diese Seite läuft vollständig in deinem Browser.</b> Sie setzt keine Cookies, bindet
-keine Analyse- oder Tracking-Dienste ein und lädt beim Aufruf keine externen Ressourcen —
-Schriften und Skripte werden mitgeliefert.</p>
+<p><b>Diese Seite läuft vollständig in deinem Browser.</b> Sie setzt keine Cookies und lädt
+beim Aufruf keine externen Ressourcen — Schriften und Skripte werden mitgeliefert. Optional
+kannst du eine anonyme Nutzungsstatistik aktivieren (Details unten).</p>
 <p><b>Hosting:</b> Die Seite liegt auf GitHub Pages (GitHub Inc., USA). Beim Abruf
 protokolliert GitHub technisch notwendige Zugriffsdaten einschließlich deiner IP-Adresse.
 Darauf hat der Betreiber dieser Seite keinen Einfluss —
@@ -1867,17 +1920,30 @@ Darauf hat der Betreiber dieser Seite keinen Einfluss —
 <p><b>Was lokal bleibt:</b> Deine Eingaben und dein Grow-Tagebuch werden ausschließlich im localStorage deines Browsers gespeichert und niemals an den Betreiber übertragen. Es gibt
 keinen Server hinter dieser Seite.</p>
 <p><b>Was hinausgeht:</b> Nutzt du den KI-Assistenten, geht deine Eingabe direkt von deinem Browser an <b>Google (Gemini, USA)</b> — mit deinem eigenen API-Schlüssel. Ohne Assistenten verlässt nichts deinen Browser.</p>
+<p><b>Optionale Statistik (standardmäßig AUS):</b> Aktivierst du unten den Schalter
+„Anonyme Nutzungsstatistik helfen", lädt die Seite ein kleines Skript von meinem eigenen
+Server (<code>analytics.oli-vera.eu</code>, Hetzner, Deutschland) nach. Übertragen werden
+ausschließlich feste Ereignis-Namen (z. B. „App geöffnet", „Eintrag gespeichert") — nie deine
+Sensorwerte, Notizeninhalte oder KI-Chats. Keine Cookies, keine dauerhafte IP-Speicherung.
+Jederzeit über denselben Schalter wieder deaktivierbar.</p>
 <p><b>Verantwortlich / Kontakt:</b>
 <a href="https://github.com/DanielEnki420" target="_blank" rel="noopener">github.com/DanielEnki420</a></p>
 <hr style="border:0;border-top:1px solid currentColor;opacity:.2;margin:1.2rem 0">
-<p><b>This page runs entirely in your browser.</b> No cookies, no analytics, no tracking,
-and no external resources are loaded — fonts and scripts ship with the page.</p>
+<p><b>This page runs entirely in your browser.</b> No cookies, and no external resources
+are loaded by default — fonts and scripts ship with the page. You can optionally enable
+anonymous usage statistics (details below).</p>
 <p><b>Hosting:</b> served from GitHub Pages (GitHub Inc., USA). GitHub logs technically
 necessary access data including your IP address; the operator of this page has no control
 over that — <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub privacy statement</a>.</p>
 <p><b>Stays local:</b> Your entries and grow diary are stored only in your browser's localStorage, and is never transmitted to the operator. There is no
 server behind this page.</p>
 <p><b>Leaves the page:</b> If you use the AI assistant, your input goes directly from your browser to <b>Google (Gemini, USA)</b> using your own API key. Without the assistant, nothing leaves your browser.</p>
+<p><b>Optional analytics (off by default):</b> Turning on the "Help with anonymous usage
+stats" toggle below loads a small script from my own server
+(<code>analytics.oli-vera.eu</code>, Hetzner, Germany). Only fixed event names are sent
+(e.g. "app opened", "entry saved") — never your sensor values, note contents, or AI chats.
+No cookies, no persistent IP storage. Can be switched off again at any time via the same
+toggle.</p>
 <p><b>Controller / contact:</b>
 <a href="https://github.com/DanielEnki420" target="_blank" rel="noopener">github.com/DanielEnki420</a></p>
 </div>
