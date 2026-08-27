@@ -577,7 +577,8 @@
     <div class="phase-week-row">
       <label for="brand-select" data-i18n="brand_label">Marke:</label>
       <select id="brand-select" aria-label="Nährstoff-Marke auswählen" onchange="renderNutrients()">
-        <option value="hesi">🌿 Hesi</option>
+        <option value="hesi">🌿 Hesi Soil</option>
+        <option value="hesi-coco">🌿 Hesi Coco</option>
         <option value="canna-terra">🌺 Canna Terra</option>
         <option value="canna-coco">🥥 Canna Coco</option>
         <option value="plagron-soil">🌱 Plagron Soil</option>
@@ -589,14 +590,20 @@
         <option value="aptus">💎 Aptus Plant Tech</option>
         <option value="mills">⚙️ Mills Nutrients</option>
         <option value="remo">🍁 Remo Nutrients</option>
-        <option value="cyco">🔵 Cyco Nutrients</option>
-        <option value="house-garden">🏡 House &amp; Garden</option>
-        <option value="atami">🌺 Atami B'Cuzz</option>
-        <option value="dutch-pro">🔵 Dutch Pro</option>
-        <option value="shogun">🟡 Shogun Fertilisers</option>
+        <option value="cyco">🔵 Cyco Soil</option>
+        <option value="cyco-coco">🔵 Cyco Coco</option>
+        <option value="house-garden">🏡 House &amp; Garden Soil</option>
+        <option value="house-garden-coco">🏡 House &amp; Garden Coco</option>
+        <option value="atami">🌺 Atami B'Cuzz Soil</option>
+        <option value="atami-coco">🌺 Atami B'Cuzz Coco</option>
+        <option value="dutch-pro">🔵 Dutch Pro Soil</option>
+        <option value="dutch-pro-coco">🔵 Dutch Pro Coco/Hydro</option>
+        <option value="shogun">🟡 Shogun Samurai Terra (Soil)</option>
+        <option value="shogun-coco">🟡 Shogun Samurai Coco</option>
         <option value="bac">🌿 BAC Fertilizers</option>
         <option value="metrop">🟠 Metrop</option>
-        <option value="top-crop">🇪🇸 Top Crop</option>
+        <option value="top-crop">🇪🇸 Top Crop Soil</option>
+        <option value="top-crop-coco">🇪🇸 Top Crop Coco</option>
         <option value="greenhouse">🏠 Green House Feeding</option>
       </select>
       <label for="phase-select" data-i18n="phase_label">Phase:</label>
@@ -882,7 +889,7 @@ const substrateTargets = {
 // ml per 10L at given week
 const nutrients = {
   hesi: {
-    name: 'Hesi',
+    name: 'Hesi Soil',
     grow: [
       { product: 'Root Complex', weeks: [1,2,3,4,5,6,7,8], ml: 50 },
       { product: 'TNT Complex',  weeks: [1,2,3,4,5,6,7,8], ml: 50 },
@@ -899,10 +906,32 @@ const nutrients = {
       { product: 'CalMag',          weeks: [1,2,3,4,5,6,7,8], ml: 4 },
     ],
     addOrder: {
-      de: '<strong>⚠️ Hesi:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → pH einstellen. Offizielle Wachstumsphase ist nur ca. 2 Wochen — hier für längere Vegetation verlängert. Hesilicio &amp; CalMag sind neu im Sortiment (Dosierung geschätzt, noch nicht auf offiziellem Chart).',
-      en: '<strong>⚠️ Hesi:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → adjust pH. Official veg phase is only ~2 weeks — extended here for longer vegetative growth. Hesilicio &amp; CalMag are new in the lineup (dose estimated, not yet on the official chart).',
-      it: '<strong>⚠️ Hesi:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → regola pH',
-      es: '<strong>⚠️ Hesi:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → ajustar pH'
+      de: '<strong>⚠️ Hesi Soil:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → pH einstellen. Offizielle Wachstumsphase ist nur ca. 2 Wochen — hier für längere Vegetation verlängert. Hesilicio &amp; CalMag sind neu im Sortiment (Dosierung geschätzt, noch nicht auf offiziellem Chart).',
+      en: '<strong>⚠️ Hesi Soil:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → adjust pH. Official veg phase is only ~2 weeks — extended here for longer vegetative growth. Hesilicio &amp; CalMag are new in the lineup (dose estimated, not yet on the official chart).',
+      it: '<strong>⚠️ Hesi Soil:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → regola pH',
+      es: '<strong>⚠️ Hesi Soil:</strong> PowerZyme → TNT/Bloom Complex → Boost → Phosphorus Plus → SuperVit → ajustar pH'
+    }
+  },
+  'hesi-coco': {
+    name: 'Hesi Coco',
+    grow: [
+      { product: 'Root Complex', weeks: [1,2,3,4,5,6,7,8], ml: 50 },
+      { product: 'TNT Complex',  weeks: [1,2,3,4,5,6,7,8], ml: 50 },
+      { product: 'PowerZyme',    weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'SuperVit',     weeks: [1,2,3,4,5,6,7,8], ml: 2 },
+    ],
+    bloom: [
+      { product: 'Hesi Coco (Basisdünger)', weeks: [1,2,3,4,5,6,7,8], ml: [50,50,50,50,50,50,50,0] },
+      { product: 'PK 13/14',                weeks: [4,5,6,7],         ml: [2.5,5,7.5,15] },
+      { product: 'Boost',                   weeks: [1,2,3,4,5,6,7,8], ml: [20,0,0,20,20,20,20,0] },
+      { product: 'PowerZyme',                weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'SuperVit',                 weeks: [1,2,3,4,5,6,7,8], ml: 2 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Hesi Coco:</strong> Wachstumsphase identisch zu Hesi Soil. In der Blüte ersetzt "Hesi Coco" (Basisdünger) + PK 13/14 die Soil-Produkte Bloom Complex + Phosphorus Plus — offizieller Namensunterschied. Coco puffert den pH nicht wie Erde — manuell auf pH 5.8–6.2 einstellen!',
+      en: '<strong>⚠️ Hesi Coco:</strong> Grow phase identical to Hesi Soil. In bloom, "Hesi Coco" (base) + PK 13/14 replace the Soil products Bloom Complex + Phosphorus Plus — official naming difference. Coco doesn\'t buffer pH like soil — adjust manually to pH 5.8–6.2!',
+      it: '<strong>⚠️ Hesi Coco:</strong> Fase di crescita identica a Hesi Soil. In fioritura "Hesi Coco" + PK 13/14 sostituiscono i prodotti Soil. Regolare manualmente il pH a 5.8–6.2!',
+      es: '<strong>⚠️ Hesi Coco:</strong> Fase de crecimiento idéntica a Hesi Soil. En floración "Hesi Coco" + PK 13/14 sustituyen los productos Soil. ¡Ajustar manualmente el pH a 5.8–6.2!'
     }
   },
   biobizz: {
@@ -1028,24 +1057,25 @@ const nutrients = {
   advanced: {
     name: 'Advanced Nutrients',
     grow: [
-      { product: 'Sensi Grow A', weeks: [1,2,3,4,5,6,7,8], ml: [1,2,3,4,4,4,4,4] },
-      { product: 'Sensi Grow B', weeks: [1,2,3,4,5,6,7,8], ml: [1,2,3,4,4,4,4,4] },
-      { product: 'Voodoo Juice', weeks: [1,2],             ml: 2 },
-      { product: 'B-52',         weeks: [1,2,3,4,5,6,7,8], ml: 2 },
+      { product: 'Sensi Grow A', weeks: [1,2,3,4,5,6,7,8], ml: [10,20,30,40,40,40,40,40] },
+      { product: 'Sensi Grow B', weeks: [1,2,3,4,5,6,7,8], ml: [10,20,30,40,40,40,40,40] },
+      { product: 'Voodoo Juice', weeks: [1,2],             ml: 20 },
+      { product: 'B-52',         weeks: [1,2,3,4,5,6,7,8], ml: 20 },
     ],
     bloom: [
-      { product: 'Sensi Bloom A', weeks: [1,2,3,4,5,6,7,8], ml: [4,4,4,4,4,4,4,0] },
-      { product: 'Sensi Bloom B', weeks: [1,2,3,4,5,6,7,8], ml: [4,4,4,4,4,4,4,0] },
-      { product: 'Voodoo Juice',  weeks: [1,2],             ml: 2 },
-      { product: 'Big Bud',       weeks: [2,3,4,5],         ml: 2 },
-      { product: 'Overdrive',     weeks: [6,7],             ml: 2 },
-      { product: 'Bud Candy',     weeks: [1,2,3,4,5,6,7],   ml: 2 },
+      { product: 'Sensi Bloom A', weeks: [1,2,3,4,5,6,7,8], ml: [40,40,40,40,40,40,40,0] },
+      { product: 'Sensi Bloom B', weeks: [1,2,3,4,5,6,7,8], ml: [40,40,40,40,40,40,40,0] },
+      { product: 'Voodoo Juice',  weeks: [1,2],             ml: 20 },
+      { product: 'B-52',          weeks: [3,4,5,6,7],       ml: 20 },
+      { product: 'Big Bud',       weeks: [2,3,4,5],         ml: 20 },
+      { product: 'Overdrive',     weeks: [6,7],             ml: 20 },
+      { product: 'Bud Candy',     weeks: [1,2,3,4,5,6,7],   ml: 20 },
     ],
     addOrder: {
-      de: '<strong>⚠️ pH Perfect (korrigiert):</strong> Aktuelle Basislinie heißt Sensi Grow/Bloom A&amp;B (nicht generisch "Grow/Bloom A/B"). Bud Candy ist ein aktuelles Kernprodukt der Blüte (vorher gefehlt). pH-Perfect-Linie hält pH automatisch stabil — trotzdem kontrollieren!',
-      en: '<strong>⚠️ pH Perfect (corrected):</strong> Current base line is Sensi Grow/Bloom A&amp;B (not generic "Grow/Bloom A/B"). Bud Candy is a current core bloom product (previously missing). pH Perfect line auto-stabilizes pH — still check it!',
-      it: '<strong>⚠️ pH Perfect:</strong> La linea base attuale si chiama Sensi Grow/Bloom A&amp;B. Bud Candy è un prodotto attuale della fioritura.',
-      es: '<strong>⚠️ pH Perfect:</strong> La línea base actual se llama Sensi Grow/Bloom A&amp;B. Bud Candy es un producto actual de floración.'
+      de: '<strong>⚠️ pH Perfect (korrigiert, offizielle EU-Chart):</strong> Aktuelle Basislinie heißt Sensi Grow/Bloom A&amp;B. Vorherige Dosierung war 10× zu niedrig (ml/L nicht auf ml/10L umgerechnet), B-52 fehlte in der Blüte — beides korrigiert. Es gibt eine eigene Sensi COCO Grow/Bloom-Variante speziell für Coco (andere Ca/Mg-Balance) — hier wird die Standard-Linie verwendet. pH-Perfect-Linie hält pH automatisch stabil — trotzdem kontrollieren!',
+      en: '<strong>⚠️ pH Perfect (corrected, official EU chart):</strong> Current base line is Sensi Grow/Bloom A&amp;B. Previous dosing was 10× too low (mL/L not converted to mL/10L), B-52 was missing from bloom — both fixed. A dedicated Sensi COCO Grow/Bloom variant exists for coco (different Ca/Mg balance) — this entry uses the standard line. pH Perfect line auto-stabilizes pH — still check it!',
+      it: '<strong>⚠️ pH Perfect:</strong> La linea base attuale si chiama Sensi Grow/Bloom A&amp;B. Esiste anche una variante Sensi COCO specifica per coco.',
+      es: '<strong>⚠️ pH Perfect:</strong> La línea base actual se llama Sensi Grow/Bloom A&amp;B. También existe una variante Sensi COCO específica para coco.'
     }
   },
   biotabs: {
@@ -1070,7 +1100,7 @@ const nutrients = {
     }
   },
   'house-garden': {
-    name: 'House & Garden',
+    name: 'House & Garden Soil',
     grow: [
       { product: 'Soil A',      weeks: [1,2,3,4,5,6,7,8], ml: [6.6,21.1,25.1,25.1,25.1,25.1,25.1,25.1] },
       { product: 'Soil B',      weeks: [1,2,3,4,5,6,7,8], ml: [6.6,21.1,25.1,25.1,25.1,25.1,25.1,25.1] },
@@ -1086,14 +1116,37 @@ const nutrients = {
       { product: 'Algen Extract',  weeks: [1,2,3,4,5,6,7,8], ml: 2.6 },
     ],
     addOrder: {
-      de: '<strong>⚠️ H&amp;G (korrigiert):</strong> Vorherige Dosierung war ca. 3–20× zu niedrig (Umrechnungsfehler Gallone→10L)! A und B immer getrennt zugeben. Roots Excelurator nie mit anderen Produkten mischen — erst spülen! Top Booster NICHT gleichzeitig mit Shooting Powder verwenden (Hersteller: "nur eines wählen").',
-      en: '<strong>⚠️ H&amp;G (corrected):</strong> Previous dosing was ~3–20× too low (gallon→10L conversion error)! Always add A and B separately. Never mix Roots Excelurator with other products — flush first! Do NOT use Top Booster together with Shooting Powder (manufacturer: "choose one").',
+      de: '<strong>⚠️ H&amp;G Soil (korrigiert):</strong> Vorherige Dosierung war ca. 3–20× zu niedrig (Umrechnungsfehler Gallone→10L)! A und B immer getrennt zugeben. Roots Excelurator nie mit anderen Produkten mischen — erst spülen! Top Booster NICHT gleichzeitig mit Shooting Powder verwenden (Hersteller: "nur eines wählen").',
+      en: '<strong>⚠️ H&amp;G Soil (corrected):</strong> Previous dosing was ~3–20× too low (gallon→10L conversion error)! Always add A and B separately. Never mix Roots Excelurator with other products — flush first! Do NOT use Top Booster together with Shooting Powder (manufacturer: "choose one").',
       it: '<strong>⚠️ H&amp;G:</strong> A e B sempre separatamente. Non mescolare Roots Excelurator con altri prodotti.',
       es: '<strong>⚠️ H&amp;G:</strong> A y B siempre por separado. No mezclar Roots Excelurator con otros productos.'
     }
   },
+  'house-garden-coco': {
+    name: 'House & Garden Coco',
+    grow: [
+      { product: 'Coco A',      weeks: [1,2,3,4,5,6,7,8], ml: [6.6,14.5,15.9,15.9,15.9,15.9,15.9,15.9] },
+      { product: 'Coco B',      weeks: [1,2,3,4,5,6,7,8], ml: [6.6,14.5,15.9,15.9,15.9,15.9,15.9,15.9] },
+      { product: 'Roots Excelurator', weeks: [1,2,3],    ml: 2.6 },
+      { product: 'Algen Extract', weeks: [1,2,3,4,5,6,7,8], ml: 2.6 },
+      { product: 'Amino Treatment', weeks: [2,3,4,5,6,7,8], ml: [2.1,4.0,6.6,6.6,6.6,6.6,6.6] },
+    ],
+    bloom: [
+      { product: 'Coco A',         weeks: [1,2,3,4,5,6,7,8], ml: [17.2,19.8,22.5,25.1,23.8,19.8,19.8,19.8] },
+      { product: 'Coco B',         weeks: [1,2,3,4,5,6,7,8], ml: [17.2,19.8,22.5,25.1,23.8,19.8,19.8,19.8] },
+      { product: 'Top Booster',    weeks: [4,5,6,7,8],       ml: 10.0 },
+      { product: 'Bud XL',         weeks: [1,2,3,4,5,6,7,8], ml: [2.6,2.6,2.6,10.0,10.0,10.0,10.0,10.0] },
+      { product: 'Algen Extract',  weeks: [1,2,3,4,5,6,7,8], ml: 2.6 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ H&amp;G Coco:</strong> Coco A/B ist chemisch auf Kokosfaser abgestimmt, läuft aber niedriger dosiert als Soil A/B — nicht verwechseln! Additive (Roots Excelurator, Algen Extract, Amino Treatment, Top Booster, Bud XL) sind laut offiziellem Chart für alle Medien identisch. pH-Ziel 5.8–6.3.',
+      en: '<strong>⚠️ H&amp;G Coco:</strong> Coco A/B is chemically tuned for coco coir but runs at lower doses than Soil A/B — don\'t mix them up! Additives (Roots Excelurator, Algen Extract, Amino Treatment, Top Booster, Bud XL) are identical across media per the official chart. pH target 5.8–6.3.',
+      it: '<strong>⚠️ H&amp;G Coco:</strong> Coco A/B è tarato per fibra di cocco, dosi più basse di Soil A/B.',
+      es: '<strong>⚠️ H&amp;G Coco:</strong> Coco A/B está ajustado para fibra de coco, dosis más bajas que Soil A/B.'
+    }
+  },
   'dutch-pro': {
-    name: 'Dutch Pro',
+    name: 'Dutch Pro Soil',
     grow: [
       { product: 'Soil Grow A',   weeks: [1,2,3,4,5,6,7,8], ml: [25,35,45,50,50,50,50,50] },
       { product: 'Soil Grow B',   weeks: [1,2,3,4,5,6,7,8], ml: [25,35,45,50,50,50,50,50] },
@@ -1108,10 +1161,32 @@ const nutrients = {
       { product: 'Explode',       weeks: [3,4,5,6,7,8],      ml: [5,5,10,10,15,15] },
     ],
     addOrder: {
-      de: '<strong>⚠️ Dutch Pro (korrigiert):</strong> A und B immer getrennt. Basis-Dosierung folgt EC-Zielwert (1.5–2.0 Grow, 1.8–2.3 Blüte). Multi Total alle 2 Wochen zugeben. Für Autoflower gibt es eine eigene Dutch Pro Autoflower-Linie (Soil A&amp;B) — hier nicht abgebildet, separat prüfen.',
-      en: '<strong>⚠️ Dutch Pro (corrected):</strong> A and B always separate. Base dosing follows target EC (1.5–2.0 grow, 1.8–2.3 bloom). Add Multi Total every 2 weeks. Dutch Pro has a separate Autoflower line (Soil A&amp;B) not modeled here — check separately.',
+      de: '<strong>⚠️ Dutch Pro Soil (korrigiert):</strong> A und B immer getrennt. Basis-Dosierung folgt EC-Zielwert (1.5–2.0 Grow, 1.8–2.3 Blüte). Multi Total alle 2 Wochen zugeben. Für Autoflower gibt es eine eigene Dutch Pro Autoflower-Linie (Soil A&amp;B) — hier nicht abgebildet, separat prüfen.',
+      en: '<strong>⚠️ Dutch Pro Soil (corrected):</strong> A and B always separate. Base dosing follows target EC (1.5–2.0 grow, 1.8–2.3 bloom). Add Multi Total every 2 weeks. Dutch Pro has a separate Autoflower line (Soil A&amp;B) not modeled here — check separately.',
       it: '<strong>⚠️ Dutch Pro:</strong> A e B sempre separatamente. Multi Total ogni 2 settimane.',
       es: '<strong>⚠️ Dutch Pro:</strong> A y B siempre por separado. Multi Total cada 2 semanas.'
+    }
+  },
+  'dutch-pro-coco': {
+    name: 'Dutch Pro Coco/Hydro',
+    grow: [
+      { product: 'Grow A (Hydro/Coco)',   weeks: [1,2,3,4,5,6,7,8], ml: [25,30,30,35,35,35,35,35] },
+      { product: 'Grow B (Hydro/Coco)',   weeks: [1,2,3,4,5,6,7,8], ml: [25,30,30,35,35,35,35,35] },
+      { product: 'Take Root',             weeks: [1,2],              ml: 10 },
+      { product: 'Multi Total',           weeks: [1],                ml: 20 },
+    ],
+    bloom: [
+      { product: 'Bloom A (Hydro/Coco)',  weeks: [1,2,3,4,5,6,7,8], ml: [25,30,30,30,30,30,30,0] },
+      { product: 'Bloom B (Hydro/Coco)',  weeks: [1,2,3,4,5,6,7,8], ml: [25,30,30,30,30,30,30,0] },
+      { product: 'Take Root',             weeks: [1,2],              ml: 10 },
+      { product: 'Multi Total',           weeks: [1,3,5,7],          ml: 10 },
+      { product: 'Explode',               weeks: [3,4,5,6,7,8],      ml: [5,5,10,10,15,15] },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Dutch Pro Coco/Hydro:</strong> Eigenes Produkt "Grow/Bloom A&amp;B (Hydro/Coco)", NICHT die Soil A/B verwenden! Hersteller gibt nur EC-Zielbereich (1.8–2.0 Grow, 1.8–2.4 Blüte) statt fester Wochenwerte an — Werte hier als Richtwert im Bereich, niedrigere Konfidenz als Soil-Chart. Es gibt auch eine RO/Soft-Water-Variante mit etwas anderen Werten.',
+      en: '<strong>⚠️ Dutch Pro Coco/Hydro:</strong> Uses its own "Grow/Bloom A&amp;B (Hydro/Coco)" product — do NOT use the Soil A/B! Manufacturer only publishes an EC target range (1.8–2.0 grow, 1.8–2.4 bloom) rather than fixed weekly values — figures here are a reasonable estimate within that range, lower confidence than the Soil chart. A separate RO/soft-water variant also exists with slightly different values.',
+      it: '<strong>⚠️ Dutch Pro Coco/Hydro:</strong> Prodotto proprio "Grow/Bloom A&amp;B (Hydro/Coco)", NON usare Soil A/B!',
+      es: '<strong>⚠️ Dutch Pro Coco/Hydro:</strong> Producto propio "Grow/Bloom A&amp;B (Hydro/Coco)", ¡NO usar Soil A/B!'
     }
   },
   bac: {
@@ -1182,7 +1257,7 @@ const nutrients = {
     }
   },
   'top-crop': {
-    name: 'Top Crop',
+    name: 'Top Crop Soil',
     grow: [
       { product: 'Top Roots (Deeper Underground)', weeks: [1], ml: 7.5 },
       { product: 'Soil A',              weeks: [2,3],            ml: [12.5,17.5] },
@@ -1202,14 +1277,42 @@ const nutrients = {
       { product: 'Top Mass', weeks: [1,2,3,4,5,6,7],     ml: 1.5 },
     ],
     addOrder: {
-      de: '<strong>⚠️ Top Crop (korrigiert):</strong> Offizielle Domain ist jetzt topcropfert.com. "Top Grow", "Top Inoculator" und "Blaster" existieren nicht mehr im aktuellen Sortiment — ersetzt durch Big One, Top Bud (PK 13-14), Micro Vita, Green Explosion. Top Mass durchgehend im ganzen Zyklus. Spanische Marke.',
-      en: '<strong>⚠️ Top Crop (corrected):</strong> Official domain is now topcropfert.com. "Top Grow", "Top Inoculator" and "Blaster" no longer exist in the current lineup — replaced by Big One, Top Bud (PK 13-14), Micro Vita, Green Explosion. Top Mass used throughout the whole cycle. Spanish brand.',
+      de: '<strong>⚠️ Top Crop Soil (korrigiert):</strong> Offizielle Domain ist jetzt topcropfert.com. "Top Grow", "Top Inoculator" und "Blaster" existieren nicht mehr im aktuellen Sortiment — ersetzt durch Big One, Top Bud (PK 13-14), Micro Vita, Green Explosion. Top Mass durchgehend im ganzen Zyklus. Spanische Marke.',
+      en: '<strong>⚠️ Top Crop Soil (corrected):</strong> Official domain is now topcropfert.com. "Top Grow", "Top Inoculator" and "Blaster" no longer exist in the current lineup — replaced by Big One, Top Bud (PK 13-14), Micro Vita, Green Explosion. Top Mass used throughout the whole cycle. Spanish brand.',
       it: '<strong>⚠️ Top Crop:</strong> Dominio ufficiale ora è topcropfert.com. Top Mass per tutto il ciclo.',
       es: '<strong>⚠️ Top Crop:</strong> El dominio oficial ahora es topcropfert.com. Top Mass durante todo el ciclo.'
     }
   },
+  'top-crop-coco': {
+    name: 'Top Crop Coco',
+    grow: [
+      { product: 'Top Roots (Deeper Underground)', weeks: [1], ml: 7.5 },
+      { product: 'Top Coco A',           weeks: [2,3],   ml: 10 },
+      { product: 'Top Coco B',           weeks: [2,3],   ml: 10 },
+      { product: 'Big One (Blattspray)', weeks: [3],     ml: 20 },
+      { product: 'Micro Vita (g/10L)',   weeks: [3],     ml: 3.5 },
+      { product: 'Green Explosion',      weeks: [2,3],   ml: 15 },
+      { product: 'Top Mass',             weeks: [2,3],   ml: 1.5 },
+    ],
+    bloom: [
+      { product: 'Top Coco A',         weeks: [1,2,3,4,5,6,7,8], ml: [20,20,20,20,20,20,20,0] },
+      { product: 'Top Coco B',         weeks: [1,2,3,4,5,6,7,8], ml: [20,20,20,20,20,20,20,0] },
+      { product: 'Big One',            weeks: [1,2,3,4],         ml: 20 },
+      { product: 'Micro Vita (g/10L)', weeks: [3],                ml: 3.5 },
+      { product: 'PK 13-14',           weeks: [3,4],              ml: 7.5 },
+      { product: 'Top Candy (flüssig)',weeks: [3,4,5,6,7],        ml: 15 },
+      { product: 'Top Bud',            weeks: [5,6,7],            ml: 7.5 },
+      { product: 'Top Mass',           weeks: [1,2,3,4,5,6,7,8],  ml: [1.5,1.5,1.5,1.5,1.5,1.5,1.5,0] },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Top Crop Coco:</strong> Eigenes Produkt "Top Coco A/B" (nicht Soil A/B verwenden!). Top Candy ist hier flüssig (nicht Granulat wie bei Soil). Top Bud und PK 13-14 laufen als zwei separate Produkte parallel.',
+      en: '<strong>⚠️ Top Crop Coco:</strong> Uses its own "Top Coco A/B" (do not use Soil A/B!). Top Candy is liquid here (not granule like Soil). Top Bud and PK 13-14 run as two separate simultaneous products.',
+      it: '<strong>⚠️ Top Crop Coco:</strong> Prodotto proprio "Top Coco A/B", non usare Soil A/B!',
+      es: '<strong>⚠️ Top Crop Coco:</strong> Producto propio "Top Coco A/B", ¡no usar Soil A/B!'
+    }
+  },
   atami: {
-    name: "Atami B'Cuzz",
+    name: "Atami B'Cuzz Soil",
     grow: [
       { product: "B'Cuzz Soil A",     weeks: [1,2,3,4], ml: [12.5,15,15,15] },
       { product: "B'Cuzz Soil B",     weeks: [1,2,3,4], ml: [12.5,15,15,15] },
@@ -1226,14 +1329,40 @@ const nutrients = {
       { product: "Atazyme",          weeks: [1,2,3,4,5,6,7,8], ml: 20 },
     ],
     addOrder: {
-      de: "<strong>⚠️ Atami B'Cuzz (korrigiert):</strong> \"B'Cuzz Bloom\" heißt offiziell \"Bloom Stimulator\". Bloombastic ist ein zentrales Flaggschiff-Boost-Produkt, das vorher komplett fehlte. ATA Terra ist eine separate, eigene Produktlinie (nicht mit B'Cuzz Soil mischen). A und B immer getrennt zugeben.",
-      en: "<strong>⚠️ Atami B'Cuzz (corrected):</strong> \"B'Cuzz Bloom\" is officially called \"Bloom Stimulator\". Bloombastic is a flagship booster product that was previously missing entirely. ATA Terra is a separate product line (don't mix with B'Cuzz Soil). Always add A and B separately.",
-      it: "<strong>⚠️ Atami B'Cuzz:</strong> \"B'Cuzz Bloom\" si chiama ufficialmente \"Bloom Stimulator\". Bloombastic è un prodotto di punta. A e B sempre separatamente.",
-      es: "<strong>⚠️ Atami B'Cuzz:</strong> \"B'Cuzz Bloom\" se llama oficialmente \"Bloom Stimulator\". Bloombastic es un producto insignia. A y B siempre por separado."
+      de: "<strong>⚠️ Atami B'Cuzz Soil (korrigiert):</strong> \"B'Cuzz Bloom\" heißt offiziell \"Bloom Stimulator\". Bloombastic ist ein zentrales Flaggschiff-Boost-Produkt, das vorher komplett fehlte. A und B immer getrennt zugeben.",
+      en: "<strong>⚠️ Atami B'Cuzz Soil (corrected):</strong> \"B'Cuzz Bloom\" is officially called \"Bloom Stimulator\". Bloombastic is a flagship booster product that was previously missing entirely. Always add A and B separately.",
+      it: "<strong>⚠️ Atami B'Cuzz:</strong> \"B'Cuzz Bloom\" si chiama ufficialmente \"Bloom Stimulator\". A e B sempre separatamente.",
+      es: "<strong>⚠️ Atami B'Cuzz:</strong> \"B'Cuzz Bloom\" se llama oficialmente \"Bloom Stimulator\". A y B siempre por separado."
+    }
+  },
+  'atami-coco': {
+    name: "Atami B'Cuzz Coco",
+    grow: [
+      { product: "B'Cuzz Coco A",           weeks: [1,2], ml: [15,20] },
+      { product: "B'Cuzz Coco B",           weeks: [1,2], ml: [15,20] },
+      { product: "B'Cuzz Root Stimulator",  weeks: [1,2], ml: [10,7.5] },
+      { product: "B'Cuzz Coco Booster Uni", weeks: [2],   ml: 5 },
+      { product: "Silic Boost",             weeks: [1,2], ml: 1 },
+      { product: "Atazyme",                 weeks: [2],   ml: 10 },
+    ],
+    bloom: [
+      { product: "B'Cuzz Coco A",                weeks: [1,2,3,4,5,6,7,8], ml: [25,29,28,27,26,25,25,0] },
+      { product: "B'Cuzz Coco B",                weeks: [1,2,3,4,5,6,7,8], ml: [25,29,28,27,26,25,25,0] },
+      { product: "B'Cuzz Blossom Builder",       weeks: [1,2,3,4,5,6,7,8], ml: [6,6,6,6,6,6,6,0] },
+      { product: "B'Cuzz Coco Bloom Stimulator", weeks: [1,2,3,4,5,6,7,8], ml: [7.5,7.5,7.5,7.5,7.5,7.5,7.5,0] },
+      { product: "Silic Boost",                  weeks: [1,2,3,4],         ml: 1 },
+      { product: "Atazyme",                      weeks: [1,2,3,4,5,6,7,8], ml: [10,10,10,10,10,10,10,0] },
+      { product: "ATA CalMag",                   weeks: [1,2,3,4,5,6,7,8], ml: [3,3,2,2,1.5,1.5,1.5,0] },
+    ],
+    addOrder: {
+      de: "<strong>⚠️ Atami B'Cuzz Coco:</strong> Eigenes Produkt \"B'Cuzz Coco A/B\" (nicht Soil A/B verwenden!). Blossom Builder + Coco Bloom Stimulator ersetzen Bloombastic/Bloom Stimulator aus der Soil-Linie. ATA CalMag wichtig bei Coco (Ca/Mg-Auswaschung).",
+      en: "<strong>⚠️ Atami B'Cuzz Coco:</strong> Uses its own \"B'Cuzz Coco A/B\" (do not use Soil A/B!). Blossom Builder + Coco Bloom Stimulator replace Bloombastic/Bloom Stimulator from the Soil line. ATA CalMag important with coco (Ca/Mg leaching).",
+      it: "<strong>⚠️ Atami B'Cuzz Coco:</strong> Prodotto proprio \"B'Cuzz Coco A/B\", non usare Soil A/B!",
+      es: "<strong>⚠️ Atami B'Cuzz Coco:</strong> Producto propio \"B'Cuzz Coco A/B\", ¡no usar Soil A/B!"
     }
   },
   shogun: {
-    name: 'Shogun Fertilisers',
+    name: 'Shogun Samurai Terra (Soil)',
     grow: [
       { product: 'Katana Roots',       weeks: [1,2],       ml: 2 },
       { product: 'Samurai Terra Grow', weeks: [1,2,3,4,5,6,7,8], ml: [10,15,20,20,20,20,20,20] },
@@ -1250,10 +1379,39 @@ const nutrients = {
       { product: 'CalMag',              weeks: [1,2,3,4,5,6,7,8], ml: 10 },
     ],
     addOrder: {
-      de: '<strong>⚠️ Shogun (korrigiert):</strong> Basisdünger heißt jetzt "Samurai Terra Grow/Bloom" (Einzelflasche, nicht mehr A/B). Nur "Sumo Active Boost" verwenden — "Sumo Boost" ist nur in UK erhältlich und kein aktuelles Verkaufsprodukt. CalMag immer bei Coco/RO-Wasser.',
-      en: '<strong>⚠️ Shogun (corrected):</strong> Base nutrient is now "Samurai Terra Grow/Bloom" (single bottle, no longer A/B). Use only "Sumo Active Boost" — "Sumo Boost" is UK-only and not a current sellable product. CalMag always with coco/RO water.',
+      de: '<strong>⚠️ Shogun Soil (korrigiert):</strong> Basisdünger heißt jetzt "Samurai Terra Grow/Bloom" (Einzelflasche, nicht mehr A/B). Nur "Sumo Active Boost" verwenden — "Sumo Boost" ist nur in UK erhältlich und kein aktuelles Verkaufsprodukt. CalMag immer bei Coco/RO-Wasser.',
+      en: '<strong>⚠️ Shogun Soil (corrected):</strong> Base nutrient is now "Samurai Terra Grow/Bloom" (single bottle, no longer A/B). Use only "Sumo Active Boost" — "Sumo Boost" is UK-only and not a current sellable product. CalMag always with coco/RO water.',
       it: '<strong>⚠️ Shogun:</strong> Il fertilizzante base ora è "Samurai Terra Grow/Bloom" (bottiglia singola). CalMag sempre con coco.',
       es: '<strong>⚠️ Shogun:</strong> El fertilizante base ahora es "Samurai Terra Grow/Bloom" (botella única). CalMag siempre con coco.'
+    }
+  },
+  'shogun-coco': {
+    name: 'Shogun Samurai Coco',
+    grow: [
+      { product: 'Shogun Start',    weeks: [1,2],         ml: 40 },
+      { product: 'Katana Roots',    weeks: [1,2,3,4,5,6], ml: [50,50,2,2,2,2] },
+      { product: 'Samurai Coco A',  weeks: [3,4,5,6],     ml: [16.5,16.5,22.5,22.5] },
+      { product: 'Samurai Coco B',  weeks: [3,4,5,6],     ml: [16.5,16.5,22.5,22.5] },
+      { product: 'ZenZym',          weeks: [3,4,5,6],     ml: 25 },
+      { product: 'Shogun Silicon',  weeks: [3,4,5,6],     ml: 10 },
+      { product: 'CalMag',          weeks: [3,4,5,6],     ml: 5 },
+    ],
+    bloom: [
+      { product: 'Katana Roots',       weeks: [1,2,3],           ml: 2 },
+      { product: 'Samurai Coco A',     weeks: [1,2,3,4,5,6,7,8], ml: [26.5,26.5,26.5,18.5,11.5,11.5,11.5,0] },
+      { product: 'Samurai Coco B',     weeks: [1,2,3,4,5,6,7,8], ml: [26.5,26.5,26.5,18.5,11.5,11.5,11.5,0] },
+      { product: 'ZenZym',             weeks: [1,2,3,4,5,6,7,8], ml: 25 },
+      { product: 'Shogun Silicon',     weeks: [1,2,3,4,5,6,7],   ml: 10 },
+      { product: 'CalMag',             weeks: [1,2,3,4,5,6,7],   ml: 5 },
+      { product: 'Sumo Active Boost',  weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'PK Warrior 9/18',    weeks: [5,6,7,8],         ml: [10,5,5,5] },
+      { product: 'Dragon Force',       weeks: [8],               ml: 40 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Shogun Coco:</strong> Eigenes Produkt "Samurai Coco A/B" (nicht Terra Grow/Bloom verwenden!). Shogun Start ist ein Steckling/Keimlings-Booster für Woche 1-2. Woche 1-2 = Stecklinge, Woche 3-6 = Wachstum, dann Blüte.',
+      en: '<strong>⚠️ Shogun Coco:</strong> Uses its own "Samurai Coco A/B" (do not use Terra Grow/Bloom!). Shogun Start is a cutting/seedling booster for weeks 1-2. Weeks 1-2 = cuttings, weeks 3-6 = vegetative, then bloom.',
+      it: '<strong>⚠️ Shogun Coco:</strong> Prodotto proprio "Samurai Coco A/B", non usare Terra Grow/Bloom!',
+      es: '<strong>⚠️ Shogun Coco:</strong> Producto propio "Samurai Coco A/B", ¡no usar Terra Grow/Bloom!'
     }
   },
   athena: {
@@ -1344,7 +1502,7 @@ const nutrients = {
     }
   },
   cyco: {
-    name: 'Cyco Nutrients',
+    name: 'Cyco Soil',
     grow: [
       { product: 'Grow A',     weeks: [1,2,3,4,5,6,7,8], ml: 20 },
       { product: 'Grow B',     weeks: [1,2,3,4,5,6,7,8], ml: 20 },
@@ -1369,10 +1527,42 @@ const nutrients = {
       { product: 'Dr. Repair',  weeks: [1,2,3,4,5,6,7,8], ml: 10 },
     ],
     addOrder: {
-      de: '<strong>⚠️ Cyco (korrigiert):</strong> Silica IMMER ZUERST ins Wasser (min. 15 Min warten), dann A+B getrennt. Dr. Repair läuft den GESAMTEN Zyklus (Grow+Blüte). Es gibt kein separates Blüh-"XL" — nur "Grow XL" (optional, nur Woche 3 im Wachstum). Potash Plus nur Wochen 1-4, danach Supa Stiky/Swell.',
-      en: '<strong>⚠️ Cyco (corrected):</strong> Silica ALWAYS FIRST in water (wait min. 15 min), then A+B separately. Dr. Repair runs the ENTIRE cycle (grow+bloom). There is no separate bloom "XL" — only "Grow XL" (optional, growth week 3 only). Potash Plus only weeks 1-4, then Supa Stiky/Swell.',
-      it: '<strong>⚠️ Cyco:</strong> Silica SEMPRE PRIMA (aspettare 15 min), poi A+B separatamente. Dr. Repair per tutto il ciclo.',
-      es: '<strong>⚠️ Cyco:</strong> Silica SIEMPRE PRIMERO (esperar 15 min), luego A+B por separado. Dr. Repair durante todo el ciclo.'
+      de: '<strong>⚠️ Cyco Soil (korrigiert):</strong> Silica IMMER ZUERST ins Wasser (min. 15 Min warten), dann A+B getrennt. Dr. Repair läuft den GESAMTEN Zyklus (Grow+Blüte). Es gibt kein separates Blüh-"XL" — nur "Grow XL" (optional, nur Woche 3 im Wachstum). Potash Plus nur Wochen 1-4, danach Supa Stiky/Swell. Diese Werte sind byte-genau aus dem offiziellen Soil-Chart (Seamix/Wormix).',
+      en: '<strong>⚠️ Cyco Soil (corrected):</strong> Silica ALWAYS FIRST in water (wait min. 15 min), then A+B separately. Dr. Repair runs the ENTIRE cycle (grow+bloom). There is no separate bloom "XL" — only "Grow XL" (optional, growth week 3 only). Potash Plus only weeks 1-4, then Supa Stiky/Swell. Values verified byte-accurate against the official Soil chart (Seamix/Wormix).',
+      it: '<strong>⚠️ Cyco Soil:</strong> Silica SEMPRE PRIMA (aspettare 15 min), poi A+B separatamente. Dr. Repair per tutto il ciclo.',
+      es: '<strong>⚠️ Cyco Soil:</strong> Silica SIEMPRE PRIMERO (esperar 15 min), luego A+B por separado. Dr. Repair durante todo el ciclo.'
+    }
+  },
+  'cyco-coco': {
+    name: 'Cyco Coco (Advanced Feed Chart)',
+    grow: [
+      { product: 'Grow A',     weeks: [1,2,3,4,5,6,7,8], ml: [20,20,30,30,30,30,30,30] },
+      { product: 'Grow B',     weeks: [1,2,3,4,5,6,7,8], ml: [20,20,30,30,30,30,30,30] },
+      { product: 'Silica',     weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+      { product: 'Zyme',       weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'B1 Boost',   weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'Uptake',     weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+      { product: 'Ryzofuel',   weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+      { product: 'Dr. Repair', weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+    ],
+    bloom: [
+      { product: 'Bloom A',     weeks: [1,2,3,4,5,6,7,8], ml: 30 },
+      { product: 'Bloom B',     weeks: [1,2,3,4,5,6,7,8], ml: 30 },
+      { product: 'Silica',      weeks: [1,2,3,4,5,6,7,8], ml: [10,10,10,10,20,20,20,20] },
+      { product: 'Zyme',        weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'B1 Boost',    weeks: [1,2,3,4,5,6,7,8], ml: 20 },
+      { product: 'Uptake',      weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+      { product: 'Potash Plus', weeks: [1,2,3,4],         ml: 10 },
+      { product: 'Supa Stiky',  weeks: [5,6,7,8],         ml: 10 },
+      { product: 'Swell',       weeks: [5,6,7,8],         ml: 25 },
+      { product: 'Suga Rush',   weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+      { product: 'Dr. Repair',  weeks: [1,2,3,4,5,6,7,8], ml: 10 },
+    ],
+    addOrder: {
+      de: '<strong>⚠️ Cyco Coco:</strong> Nutzt Cycos offiziellen "Advanced Feed Chart" (für alle Medien außer DWC geeignet). Grow A/B und Bloom A/B laufen HÖHER als bei Soil (Coco puffert nicht). Supa Stiky dagegen NIEDRIGER (halbe Soil-Menge). EC-Ziel höher: 1.6→2.1 (Grow), 2.1→2.3 (Blüte).',
+      en: '<strong>⚠️ Cyco Coco:</strong> Uses Cyco\'s official "Advanced Feed Chart" (suitable for all media except DWC). Grow A/B and Bloom A/B run HIGHER than Soil (coco doesn\'t buffer). Supa Stiky runs LOWER (half the Soil amount). Higher EC target: 1.6→2.1 (grow), 2.1→2.3 (bloom).',
+      it: '<strong>⚠️ Cyco Coco:</strong> Usa la "Advanced Feed Chart" ufficiale. Grow/Bloom A/B più alti, Supa Stiky più basso rispetto a Soil.',
+      es: '<strong>⚠️ Cyco Coco:</strong> Usa la "Advanced Feed Chart" oficial. Grow/Bloom A/B más altos, Supa Stiky más bajo que Soil.'
     }
   }
 };
