@@ -578,14 +578,10 @@
       <label for="brand-select" data-i18n="brand_label">Marke:</label>
       <select id="brand-select" aria-label="Nährstoff-Marke auswählen" onchange="renderNutrients()">
         <option value="hesi">🌿 Hesi</option>
-        <option value="canna-aqua">💧 Canna Aqua</option>
         <option value="canna-terra">🌺 Canna Terra</option>
         <option value="canna-coco">🥥 Canna Coco</option>
-        <option value="plagron-hydro">🌊 Plagron Hydro</option>
         <option value="plagron-soil">🌱 Plagron Soil</option>
         <option value="plagron-coco">🌱 Plagron Coco</option>
-        <option value="ghe">🧪 General Hydroponics (US) FloraSeries</option>
-        <option value="terra-aquatica">🧪 Terra Aquatica (ex-GHE, EU)</option>
         <option value="advanced">⚡ Advanced Nutrients</option>
         <option value="athena">🩵 Athena Nutrients</option>
         <option value="biobizz">🍃 Biobizz</option>
@@ -1029,25 +1025,6 @@ const nutrients = {
       es: '<strong>⚠️ Plagron Coco:</strong> A y B por separado. ¡Regar diariamente!'
     }
   },
-  ghe: {
-    name: 'General Hydroponics (US) FloraSeries',
-    grow: [
-      { product: 'FloraMicro', weeks: [1,2,3,4,5,6,7,8], ml: [5.3,11.1,14.8,18.0,18.0,18.0,18.0,18.0] },
-      { product: 'FloraGro',   weeks: [1,2,3,4,5,6,7,8], ml: [5.3,10.0,13.7,16.9,16.9,16.9,16.9,16.9] },
-      { product: 'FloraBloom', weeks: [1,2,3,4,5,6,7,8], ml: [5.3,7.9,10.0,12.7,12.7,12.7,12.7,12.7] },
-    ],
-    bloom: [
-      { product: 'FloraMicro', weeks: [1,2,3,4,5,6,7,8], ml: [16.1,16.1,14.0,14.0,14.0,10.0,10.0,6.1] },
-      { product: 'FloraGro',   weeks: [1,2,3,4,5,6,7,8], ml: [14.0,14.0,14.0,14.0,14.0,10.0,10.0,6.1] },
-      { product: 'FloraBloom', weeks: [1,2,3,4,5,6,7,8], ml: [18.0,18.0,20.1,20.1,20.1,11.9,12.2,9.5] },
-    ],
-    addOrder: {
-      de: '<strong>⚠️ GHE ist jetzt "General Hydroponics" (US):</strong> Die europäische GHE-Marke heißt seit 2022 Terra Aquatica (separater Eintrag). Dies ist die aktuelle US-FloraSeries. FloraMicro immer ZUERST ins Wasser, dann FloraGro, dann FloraBloom!',
-      en: '<strong>⚠️ GHE is now "General Hydroponics" (US):</strong> The European GHE brand has been called Terra Aquatica since 2022 (separate entry). This is the current US FloraSeries. Always add FloraMicro FIRST, then FloraGro, then FloraBloom!',
-      it: '<strong>⚠️ GHE ora è "General Hydroponics" (USA):</strong> Il marchio europeo dal 2022 si chiama Terra Aquatica. FloraMicro SEMPRE prima, poi FloraGro, poi FloraBloom!',
-      es: '<strong>⚠️ GHE ahora es "General Hydroponics" (EE.UU.):</strong> La marca europea desde 2022 se llama Terra Aquatica. ¡FloraMicro SIEMPRE primero, luego FloraGro, luego FloraBloom!'
-    }
-  },
   advanced: {
     name: 'Advanced Nutrients',
     grow: [
@@ -1279,28 +1256,6 @@ const nutrients = {
       es: '<strong>⚠️ Shogun:</strong> El fertilizante base ahora es "Samurai Terra Grow/Bloom" (botella única). CalMag siempre con coco.'
     }
   },
-  'terra-aquatica': {
-    name: 'Terra Aquatica (ex-GHE, EU)',
-    grow: [
-      { product: 'TriPart Grow',  weeks: [1,2,3,4,5,6,7,8], ml: [5,10,18,18,18,18,18,18] },
-      { product: 'TriPart Micro', weeks: [1,2,3,4,5,6,7,8], ml: [5,10,12,12,12,12,12,12] },
-      { product: 'TriPart Bloom', weeks: [1,2,3,4,5,6,7,8], ml: [5,10,6,6,6,6,6,6] },
-      { product: 'Pro Roots',     weeks: [1,2],              ml: 2 },
-    ],
-    bloom: [
-      { product: 'TriPart Grow',  weeks: [1,2,3,4,5,6,7,8], ml: [20,8,8,8,8,8,8,0] },
-      { product: 'TriPart Micro', weeks: [1,2,3,4,5,6,7,8], ml: [20,16,16,16,16,16,16,0] },
-      { product: 'TriPart Bloom', weeks: [1,2,3,4,5,6,7,8], ml: [15,24,24,24,24,24,24,0] },
-      { product: 'Pro Organic',   weeks: [1,2,3,4,5,6,7,8], ml: 1 },
-      { product: 'Fulvic (Diamond Nectar)', weeks: [1],     ml: 20 },
-    ],
-    addOrder: {
-      de: '<strong>⚠️ Terra Aquatica (aktuelle EU-Marke, ex-GHE):</strong> TriPart Micro IMMER ZUERST ins Wasser, dann Grow, dann Bloom! BioRoots wurde zu Pro Roots, BioSevia wurde zu Pro Organic umbenannt (Duplikate entfernt). Offizieller Chart ist stufenbasiert statt wochenbasiert — hier auf Wochen 1-8 gemappt.',
-      en: '<strong>⚠️ Terra Aquatica (current EU brand, ex-GHE):</strong> TriPart Micro ALWAYS FIRST in water, then Grow, then Bloom! BioRoots was renamed Pro Roots, BioSevia was renamed Pro Organic (duplicates removed). Official chart is stage-based rather than week-based — mapped here to weeks 1-8.',
-      it: '<strong>⚠️ Terra Aquatica:</strong> TriPart Micro SEMPRE PRIMA, poi Grow, poi Bloom! BioRoots ora è Pro Roots, BioSevia ora è Pro Organic.',
-      es: '<strong>⚠️ Terra Aquatica:</strong> TriPart Micro SIEMPRE PRIMERO, luego Grow, luego Bloom! BioRoots ahora es Pro Roots, BioSevia ahora es Pro Organic.'
-    }
-  },
   athena: {
     name: 'Athena Nutrients',
     grow: [
@@ -1340,51 +1295,6 @@ const nutrients = {
       en: '<strong>⚠️ Green House Feeding (corrected):</strong> Trycho+, Bacto+, Top Feeding and Powder Feeding no longer exist in the current catalog — removed. Bio Grow/Bloom are substrate-mix powders (not a weekly water feed!), only BioEnhancer is dosed regularly via water. Booster PK+ replaces Top Feeding as the bloom booster.',
       it: '<strong>⚠️ Green House Feeding:</strong> Bio Grow/Bloom sono polveri da miscelare nel substrato, non fertilizzanti settimanali via acqua.',
       es: '<strong>⚠️ Green House Feeding:</strong> Bio Grow/Bloom son polvos para mezclar en el sustrato, no fertilizantes semanales vía agua.'
-    }
-  },
-  'canna-aqua': {
-    name: 'Canna Aqua',
-    grow: [
-      { product: 'Aqua Vega A', weeks: [1,2,3,4], ml: [24.5,28.5,32,32] },
-      { product: 'Aqua Vega B', weeks: [1,2,3,4], ml: [24.5,28.5,32,32] },
-      { product: 'Rhizotonic XP', weeks: [1,2,3,4], ml: [40,20,20,20] },
-      { product: 'Cannazym',      weeks: [1,2,3,4], ml: [0,25,25,25] },
-      { product: 'Cannaboost',    weeks: [3,4],     ml: 20 },
-    ],
-    bloom: [
-      { product: 'Aqua Flores A', weeks: [1,2,3,4,5,6,7], ml: [34,34,34,34,30,30,0] },
-      { product: 'Aqua Flores B', weeks: [1,2,3,4,5,6,7], ml: [34,34,34,34,30,30,0] },
-      { product: 'Rhizotonic XP', weeks: [1,2,3,4,5],     ml: 5 },
-      { product: 'Cannazym',      weeks: [1,2,3,4,5,6,7], ml: [25,25,25,25,25,37.5,37.5] },
-      { product: 'Cannaboost',    weeks: [1,2,3,4,5,6,7], ml: 30 },
-      { product: 'PK 13/14',      weeks: [4],             ml: 15 },
-    ],
-    addOrder: {
-      de: '<strong>⚠️ Canna Aqua (V25.01):</strong> A und B IMMER getrennt zugeben — nie direkt mischen! Hydro-Linie (DWC/NFT/Recirculation), EC-Basiswasser niedriger (0.2) als bei Terra/Coco. Rhizotonic → Rhizotonic XP, Boost → Cannaboost.',
-      en: '<strong>⚠️ Canna Aqua (V25.01):</strong> Always add A and B separately — never mix directly! Hydro line (DWC/NFT/recirculation), lower base water EC (0.2) than Terra/Coco. Rhizotonic → Rhizotonic XP, Boost → Cannaboost.',
-      it: '<strong>⚠️ Canna Aqua:</strong> A e B sempre separatamente. Linea idroponica. Rhizotonic ora è Rhizotonic XP.',
-      es: '<strong>⚠️ Canna Aqua:</strong> A y B siempre por separado. Línea hidropónica. Rhizotonic ahora es Rhizotonic XP.'
-    }
-  },
-  'plagron-hydro': {
-    name: 'Plagron Hydro',
-    grow: [
-      { product: 'Hydro A',       weeks: [1,2,3,4,5,6,7,8], ml: [14,16,16,16,16,16,16,16] },
-      { product: 'Hydro B',       weeks: [1,2,3,4,5,6,7,8], ml: [14,16,16,16,16,16,16,16] },
-      { product: 'Hydro Roots',   weeks: [1,2,3],            ml: 10 },
-    ],
-    bloom: [
-      { product: 'Hydro A',         weeks: [1,2,3,4,5,6,7,8], ml: [18,20,22,25,25,25,25,25] },
-      { product: 'Hydro B',         weeks: [1,2,3,4,5,6,7,8], ml: [18,20,22,25,25,25,25,25] },
-      { product: 'Hydro Roots',     weeks: [1,2,3],            ml: 10 },
-      { product: 'Power Buds',      weeks: [1,2,3,4,5,6,7,8], ml: 10 },
-      { product: 'Green Sensation', weeks: [4,5,6,7,8],        ml: 10 },
-    ],
-    addOrder: {
-      de: '<strong>⚠️ Plagron Hydro (korrigiert):</strong> A und B IMMER getrennt zugeben. Wichtig: Power Roots &amp; Sugar Royal sind laut Plagron NICHT für Hydro-Systeme geeignet — stattdessen Hydro Roots &amp; Power Buds verwenden. EC-Zielwerte steigen von 1.4 auf bis zu 2.3 mS/cm.',
-      en: '<strong>⚠️ Plagron Hydro (corrected):</strong> Always add A and B separately. Important: Power Roots &amp; Sugar Royal are NOT suitable for hydro systems per Plagron — use Hydro Roots &amp; Power Buds instead. EC targets rise from 1.4 to up to 2.3 mS/cm.',
-      it: '<strong>⚠️ Plagron Hydro:</strong> A e B sempre separatamente. Power Roots e Sugar Royal NON sono adatti per sistemi idroponici — usare Hydro Roots e Power Buds.',
-      es: '<strong>⚠️ Plagron Hydro:</strong> A y B siempre por separado. Power Roots y Sugar Royal NO son aptos para sistemas hidropónicos — usar Hydro Roots y Power Buds.'
     }
   },
   mills: {
