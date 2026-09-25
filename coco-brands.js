@@ -264,7 +264,7 @@ const COCO_MARKEN = {
     "bloom": [
       { "product": "Athena Bloom A", "weeks": [1, 2, 3, 4, 5, 6], "ml": [24, 24, 24, 24, 24, 21] },
       { "product": "Athena Bloom B", "weeks": [1, 2, 3, 4, 5, 6], "ml": [24, 24, 24, 24, 24, 21] },
-      { "product": "Athena CaMg", "weeks": [1, 2, 3, 4, 5, 6], "ml": [6.5, 6.5, 6.5, 6.5, 6.5, 6.5] },
+      { "product": "Athena CaMg", "weeks": [1, 2, 3, 4, 5, 6, 7], "ml": [6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5] },
       { "product": "Athena Cleanse", "weeks": [1, 2, 3, 4, 5, 6, 7, 8], "ml": [5, 5, 5, 5, 5, 5, 5, 5] },
       { "product": "Athena PK", "weeks": [3, 4, 5, 6, 7, 8], "ml": [11, 13, 24, 26, 32, 26] },
       { "product": "Athena Fade", "weeks": [7, 8], "ml": [32, 32] }
@@ -417,7 +417,7 @@ const COCO_MARKEN = {
     "name": "Remo Nutrients",
     "substrat": "beide",
     "quelle": "Remo Nutrients Feed Chart (dort in ml pro Gallone) – Werte wie im DWC-Rechner, abgerufen 24.9.2026",
-    "planHinweis": "Seit 25.9.2026 nach dem Remo-Schema (wie im DWC-Rechner): 4 Wuchswochen und 8 Blütewochen, die letzte davon zum Spülen. Micro und Grow bzw. Bloom in gleichen Mengen. Remo nennt keinen EC-Zielwert. Bei laufendem Grow nicht auf einen Schlag umstellen, sondern über mehrere Gießgänge anpassen und den Runoff-EC beobachten.",
+    "planHinweis": "Seit 25.9.2026 nach dem Remo-Schema (wie im DWC-Rechner): 4 Wuchswochen und 8 Blütewochen, die letzte davon zum Spülen. Micro und Grow bzw. Bloom in gleichen Mengen. Remo nennt keinen EC-Zielwert. MagNifiCal (CalMag) nach Wasserhärte, kein fester Wochenwert. Bei laufendem Grow nicht auf einen Schlag umstellen, sondern über mehrere Gießgänge anpassen und den Runoff-EC beobachten.",
     "wochen": {
       "grow": 4,
       "bloom": 8,
@@ -429,13 +429,11 @@ const COCO_MARKEN = {
     "grow": [
       { "product": "Remo Micro", "weeks": [1, 2, 3, 4], "ml": [13.2, 15.9, 18.5, 21.1] },
       { "product": "Remo Grow", "weeks": [1, 2, 3, 4], "ml": [13.2, 15.9, 18.5, 21.1] },
-      { "product": "Magnifical", "weeks": [1, 2, 3, 4], "ml": [2, 2, 2, 2] },
       { "product": "VeloKelp", "weeks": [1, 2, 3, 4], "ml": [13.2, 15.9, 18.5, 21.1] }
     ],
     "bloom": [
       { "product": "Remo Micro", "weeks": [1, 2, 3, 4, 5, 6, 7], "ml": [21.1, 21.1, 21.1, 21.1, 26.4, 26.4, 26.4] },
       { "product": "Remo Bloom", "weeks": [1, 2, 3, 4, 5, 6, 7], "ml": [21.1, 21.1, 21.1, 21.1, 26.4, 26.4, 26.4] },
-      { "product": "Magnifical", "weeks": [1], "ml": [2] },
       { "product": "VeloKelp", "weeks": [1, 2, 3, 4, 5, 6, 7], "ml": [21.1, 21.1, 21.1, 21.1, 26.4, 26.4, 26.4] },
       { "product": "AstroFlower", "weeks": [1, 2, 3, 4, 5, 6, 7], "ml": [21.1, 21.1, 21.1, 21.1, 26.4, 26.4, 26.4] },
       { "product": "Nature's Candy", "weeks": [1, 2, 3, 4, 5, 6, 7], "ml": [21.1, 21.1, 21.1, 21.1, 26.4, 26.4, 26.4] }
@@ -1125,7 +1123,7 @@ const COCO_MARKEN = {
     "name": "Canna Aqua (Hydro)",
     "substrat": "hydro",
     "quelle": "CANNA Aqua Zuchtschema – Werte wie im DWC-Rechner, abgerufen 24.9.2026",
-    "planHinweis": "Seit 25.9.2026 nach dem CANNA-Aqua-Schema (wie im DWC-Rechner): 8 Wuchswochen und 6 Blütewochen. Canna Aqua ist eine Hydro-Linie für rezirkulierende Systeme; für Coco ist Canna Coco gedacht. Bei laufendem Grow nicht auf einen Schlag umstellen, sondern über mehrere Gießgänge anpassen und den Runoff-EC beobachten.",
+    "planHinweis": "Seit 25.9.2026 nach dem CANNA-Aqua-Schema (wie im DWC-Rechner): 8 Wuchswochen und 6 Blütewochen. Canna Aqua ist eine Hydro-Linie für rezirkulierende Systeme; für Coco ist Canna Coco gedacht. CalMag Agent nach Wasserhärte, kein fester Wochenwert. Bei laufendem Grow nicht auf einen Schlag umstellen, sondern über mehrere Gießgänge anpassen und den Runoff-EC beobachten.",
     "wochen": {
       "grow": 8,
       "bloom": 6
@@ -1134,8 +1132,7 @@ const COCO_MARKEN = {
       { "product": "Aqua Vega A", "weeks": [1, 2, 3, 4, 5, 6, 7, 8], "ml": [20, 25, 30, 30, 35, 35, 35, 35] },
       { "product": "Aqua Vega B", "weeks": [1, 2, 3, 4, 5, 6, 7, 8], "ml": [20, 25, 30, 30, 35, 35, 35, 35] },
       { "product": "Rhizotonic", "weeks": [1, 2, 3], "ml": [30, 20, 20] },
-      { "product": "CannaZym", "weeks": [1, 2, 3, 4, 5, 6, 7, 8], "ml": [25, 25, 25, 25, 25, 25, 25, 25] },
-      { "product": "CalMag Agent", "weeks": [1, 2, 3, 4, 5, 6, 7, 8], "ml": [4, 4, 4, 4, 4, 4, 4, 4] }
+      { "product": "CannaZym", "weeks": [1, 2, 3, 4, 5, 6, 7, 8], "ml": [25, 25, 25, 25, 25, 25, 25, 25] }
     ],
     "bloom": [
       { "product": "Aqua Flores A", "weeks": [1, 2, 3, 4, 5, 6], "ml": [30, 35, 35, 30, 25, 20] },
