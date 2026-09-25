@@ -23,13 +23,13 @@ Für alle, die in **Erde**, **Coco** oder einem **Coco+Erde Mix** growen.
 - 🌡️ pH · EC · Temperatur-Tracking mit Substrat-spezifischen Zielbereichen
 - 🔁 Runoff-Monitoring — erkennt Salzansammlung im Medium
 - 💧 Gieß- & Düngererinnerung (jedes 1., 2. oder 3. Gießen)
-- 🧪 Nährstoff-Rechner für **25 Marken** mit wochenweisen Dosierplänen
+- 🧪 Nährstoff-Rechner für **21 Hersteller in 31 Plänen** (Erde und Coco getrennt) mit wochenweisen Dosierplänen – jeder Plan nach dem offiziellen Herstellerschema, mit Quelle
 - 📈 Verlaufs-Charts (Chart.js)
 - 📝 Grow-Tagebuch mit lokaler Speicherung
 - 🤖 Gemini KI-Assistent (optional, eigener API-Key)
 - 🌍 4 Sprachen: Deutsch · English · Italiano · Español
 
-**Unterstützte Marken:** Hesi · Canna Aqua · Canna Terra · Canna Coco · Plagron Hydro · Plagron Soil · Plagron Coco · GHE Flora Series · Terra Aquatica · Advanced Nutrients · Athena · Biobizz · BioTabs · Aptus · Mills · Remo · Cyco · House & Garden · Atami B'Cuzz · Dutch Pro · Shogun · BAC · Metrop · Top Crop · Green House Feeding
+**Unterstützte Marken:** Hesi (Erde/Coco) · Canna Terra · Canna Coco · Plagron Soil · Plagron Coco · GHE Flora Series · Terra Aquatica (Erde/Coco) · Advanced Nutrients · Athena · Biobizz · BioTabs · Aptus · Mills · Remo · Cyco (Erde/Coco) · House & Garden (Erde/Coco) · Atami B'Cuzz (Erde/Coco) · Dutch Pro (Erde/Coco) · Shogun (Erde/Coco) · BAC · Metrop · Top Crop (Erde/Coco) · Green House Feeding
 
 ## 💧 DWC Grower Edition
 
@@ -139,13 +139,13 @@ For everyone growing in **soil**, **coco**, or a **coco+soil mix**.
 - 🌡️ pH · EC · Temperature tracking with substrate-specific target ranges
 - 🔁 Runoff monitoring — detects salt build-up in the medium
 - 💧 Watering & feeding reminder (every 1st, 2nd or 3rd watering)
-- 🧪 Nutrient calculator for **25 brands** with week-by-week dosing schedules
+- 🧪 Nutrient calculator for **21 manufacturers in 31 plans** (soil and coco separate) with week-by-week dosing schedules – every plan follows the official manufacturer schedule, with source
 - 📈 History charts (Chart.js)
 - 📝 Grow diary with local storage
 - 🤖 Gemini AI assistant (optional, own API key)
 - 🌍 4 languages: Deutsch · English · Italiano · Español
 
-**Supported brands:** Hesi · Canna Aqua · Canna Terra · Canna Coco · Plagron Hydro · Plagron Soil · Plagron Coco · GHE Flora Series · Terra Aquatica · Advanced Nutrients · Athena · Biobizz · BioTabs · Aptus · Mills · Remo · Cyco · House & Garden · Atami B'Cuzz · Dutch Pro · Shogun · BAC · Metrop · Top Crop · Green House Feeding
+**Supported brands:** Hesi (soil/coco) · Canna Terra · Canna Coco · Plagron Soil · Plagron Coco · GHE Flora Series · Terra Aquatica (soil/coco) · Advanced Nutrients · Athena · Biobizz · BioTabs · Aptus · Mills · Remo · Cyco (soil/coco) · House & Garden (soil/coco) · Atami B'Cuzz (soil/coco) · Dutch Pro (soil/coco) · Shogun (soil/coco) · BAC · Metrop · Top Crop (soil/coco) · Green House Feeding
 
 ## 💧 DWC Grower Edition
 
