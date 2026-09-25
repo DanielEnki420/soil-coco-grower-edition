@@ -98,6 +98,7 @@ Beide funktionieren auch **offline**, sobald einmal geladen — einfach als Lese
 - **Keine Cookies.** Daten in `localStorage` auf deinem Gerät.
 - **Kein Tracking von Haus aus.** Kein Google Analytics, kein Facebook Pixel — optional kannst du in der App eine anonyme Nutzungsstatistik aktivieren (eigener Server, standardmäßig aus, siehe Datenschutzhinweis in der App).
 - **Kein Account.** Öffnen und loslegen.
+- **Feedback über GitHub.** Das Fenster „Neu in Version …“ verlinkt ein vorausgefülltes [GitHub-Issue](https://github.com/DanielEnki420/soil-coco-grower-edition/issues) – die App selbst schickt nichts ab.
 - **Gemini KI optional** — nur wenn du deinen eigenen kostenlosen API-Key bei [aistudio.google.com](https://aistudio.google.com) holst.
 
 ---
@@ -213,6 +214,7 @@ Both work **offline** once loaded — just save as a bookmark or add to your hom
 - **No cookies.** Data stored in `localStorage` on your device.
 - **No tracking by default.** No Google Analytics, no Facebook Pixel — you can optionally enable anonymous usage stats in the app (own server, off by default, see privacy note in the app).
 - **No account.** Open and go.
+- **Feedback via GitHub.** The “New in version …” notice links to a pre-filled [GitHub issue](https://github.com/DanielEnki420/soil-coco-grower-edition/issues) – the app itself sends nothing.
 - **Gemini AI optional** — only if you get your own free API key at [aistudio.google.com](https://aistudio.google.com).
 
 ---
