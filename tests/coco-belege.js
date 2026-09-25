@@ -25,15 +25,24 @@ const lauf = (skript, arg) => spawnSync(process.execPath, [path.join(WURZEL, skr
 
 // ── 1. Aufbau jeder Marke ─────────────────────────────────────────────────────
 const EINHEITEN = [undefined, 'ml', 'g', 'Tropfen'];
+// Seit 25.9.2026 sind die sichtbaren Texte Objekte {de, en, it, es}.
+const de = x => (x && typeof x === 'object') ? x.de : (x || '');
+const alle = x => (x && typeof x === 'object') ? Object.values(x) : [x];
+const vier = (x, wo) => {
+  if (!x || typeof x !== 'object') { f(`${wo}: nicht in vier Sprachen`); return; }
+  for (const l of ['de', 'en', 'it', 'es']) if (typeof x[l] !== 'string' || !x[l].trim()) f(`${wo}: Sprache ${l} fehlt`);
+};
 let zeilen = 0;
 for (const [k, m] of Object.entries(N)) {
   if (!m.label) f(`${k}: label fehlt`);
   if (!['erde', 'coco', 'beide', 'hydro'].includes(m.substrat)) f(`${k}: substrat "${m.substrat}" unbekannt`);
-  if (!/abgerufen \d+\.\d+\.\d{4}$/.test(m.quelle || '')) f(`${k}: quelle ohne Abrufdatum`);
-  if (!/^Seit \d+\.\d+\.\d{4} nach /.test(m.planHinweis || '')) f(`${k}: planHinweis fehlt oder ist nicht datiert`);
+  if (!/abgerufen \d+\.\d+\.\d{4}$/.test(de(m.quelle))) f(`${k}: quelle ohne Abrufdatum`);
+  if (!/^Seit \d+\.\d+\.\d{4} nach /.test(de(m.planHinweis))) f(`${k}: planHinweis fehlt oder ist nicht datiert`);
+  vier(m.quelle, `${k} quelle`); vier(m.planHinweis, `${k} planHinweis`);
   const w = m.wochen || {};
   if (!(w.grow >= 1 && w.bloom >= 1)) f(`${k}: wochen.grow/bloom fehlen`);
   if (w.spuelen && w.spuelen.woche !== w.bloom) f(`${k}: Spuelwoche ${w.spuelen.woche} ist nicht die letzte Bluetewoche (${w.bloom})`);
+  if (w.spuelen) vier(w.spuelen.text, `${k} Spueltext`);
   if (w.nachWuchs && !['wiederholen', 'wasser'].includes(w.nachWuchs)) f(`${k}: nachWuchs "${w.nachWuchs}" unbekannt`);
   if (!m.addOrder || ['de', 'en', 'it', 'es'].some(l => !m.addOrder[l])) f(`${k}: Mischhinweis nicht in allen vier Sprachen`);
   for (const ph of ['grow', 'bloom']) {
@@ -48,11 +57,12 @@ for (const [k, m] of Object.entries(N)) {
         if (i && x <= p.weeks[i - 1]) f(`${wo}: Wochen nicht aufsteigend`);
       });
       if (p.fest !== undefined) {
-        if (typeof p.fest !== 'string' || !p.fest) f(`${wo}: fest ohne Text`);
+        if (!p.fest || typeof p.fest !== 'object') f(`${wo}: fest ohne Text in vier Sprachen`); else vier(p.fest, `${wo} fest`);
         if (p.ml !== undefined) f(`${wo}: fest und ml zugleich`);
       } else if (!Array.isArray(p.ml) || p.ml.length !== p.weeks.length) f(`${wo}: ml passt nicht zu weeks`);
       else if (p.ml.some(v => typeof v !== 'number' || !(v > 0))) f(`${wo}: ml enthaelt 0 oder keine Zahl – Woche weglassen statt 0 eintragen`);
       if (!EINHEITEN.includes(p.einheit)) f(`${wo}: Einheit "${p.einheit}" unbekannt`);
+      if (p.hinweis !== undefined) vier(p.hinweis, `${wo} hinweis`);
     }
   }
 }
@@ -177,8 +187,8 @@ for (const l of ['de', 'en', 'it', 'es']) for (const s of SCHLUESSEL) if (!(I[l]
 // ── 7. Sichtbare Texte ohne ae/oe/ue-Ersatz ──────────────────────────────────
 const ERSATZ = /(?<![A-Za-zÄÖÜäöüß])(fuer|ueber|Bluete\w*|Duenger\w*|spuel\w*|Staerke|haelt|naehr\w*|waehrend|koenn\w*|muess\w*|pruef\w*|zusaetz\w*|Toepf\w*|Giess\w*|groesser|Groesse|hoechst\w*|Haerte|haerte\w*|schliesst|heisst)(?![A-Za-zÄÖÜäöüß])/;
 for (const [k, m] of Object.entries(N)) {
-  const texte = [m.label, m.planHinweis, m.quelle, (m.wochen.spuelen || {}).text, ...Object.values(m.addOrder || {})];
-  for (const ph of ['grow', 'bloom']) for (const p of m[ph]) texte.push(p.product, p.hinweis, p.fest);
+  const texte = [m.label, ...alle(m.planHinweis), ...alle(m.quelle), ...alle((m.wochen.spuelen || {}).text), ...Object.values(m.addOrder || {})];
+  for (const ph of ['grow', 'bloom']) for (const p of m[ph]) texte.push(p.product, ...alle(p.hinweis), ...alle(p.fest));
   for (const t of texte.filter(Boolean)) { const x = ERSATZ.exec(t); if (x) f(`${k}: sichtbarer Text mit "${x[0]}" statt Umlaut`); }
 }
 
