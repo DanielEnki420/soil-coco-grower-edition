@@ -36,7 +36,7 @@ Für alle, die in **Erde**, **Coco** oder einem **Coco+Erde Mix** growen.
 Für alle, die in **Deep Water Culture** oder **Hydroponik** growen.
 
 - 💧 pH · EC · Temp · ORP-Alerts mit Phasen-spezifischen Ranges
-- 🧪 13 Hydro-Marken in der Dünger-Bibliothek
+- 🧪 13 Hydro-Marken im Rechner, jede nach dem offiziellen Herstellerschema – 14 in der Dünger-Bibliothek (Biobizz sichtbar, aber gesperrt)
 - ⚗️ EC-Nachfüll-Rechner (für Verdunstung & Nachdüngung)
 - 🔄 Wasserwechsel-Erinnerung
 - ⏳ Ernte-Countdown
@@ -152,7 +152,7 @@ For everyone growing in **soil**, **coco**, or a **coco+soil mix**.
 For everyone growing in **Deep Water Culture** or **hydroponics**.
 
 - 💧 pH · EC · Temp · ORP alerts with phase-specific ranges
-- 🧪 13 hydro brands in the nutrient library
+- 🧪 13 hydro brands in the calculator, each from the official manufacturer schedule – 14 in the nutrient library (Biobizz shown but locked)
 - ⚗️ EC top-up calculator (for evaporation & nutrient correction)
 - 🔄 Water change reminder
 - ⏳ Harvest countdown
