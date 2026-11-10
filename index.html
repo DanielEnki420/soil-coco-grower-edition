@@ -10,11 +10,13 @@
 <style>
 
   .logo-img {
-    height: 64px;
-    width: 64px;
+    height: 96px;
+    width: 96px;
     object-fit: contain;
     flex-shrink: 0;
   }
+  /* Phones: the header is sticky, keep it compact */
+  @media(max-width: 600px) { .logo-img { height: 64px; width: 64px; } }
 
   /* === RESET & BASE === */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
